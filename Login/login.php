@@ -10,23 +10,50 @@ $id = $_POST['login_id'];
 $pass = $_POST['login_passwd'];
 
 //id와 password에 해당하는 정보 쿼리로 받음
-$db->query = "select id, pass, permit,regist_type from member where id='".$id."' and pass=password('".$pass."')";
+$db->query = "select Ppwd from PROFESSOR where Pnumber='".$id."'";
 $db->DBQ();
 
 $num = $db->result->num_rows;
 $data = $db->result->fetch_row();
-$db->DBO();
 
-//해당하는 정보가 1개면 접속을 하고 세션값으로 나머지 정보를 받으며 메인페이지로 돌아감
 if($num==1)
 {
-   $_SESSION['id'] = $id;
-   $_SESSION['permit'] = $data[2];
-   $_SESSION['regist_type']=$data[3];
-   echo "<script>location.replace('/');</script>";
-} else if(($id!="" || $pass!="") && $data[0]!=1) //아이디 비밀번호 정보가 맞지않을 경우
+   if ($data[0] == $pass)
+   {
+      $_SESSION['id'] = $id;
+      $_SESSION['regist_type']= 1; // 교수
+      echo "<script>location.replace('/');</script>";
+   }
+   else 
+   {
+      echo "<script>alert('비밀번호가 맞지 않습니다.');</script>";
+      echo "<script>location.replace('/');</script>";
+   }
+} 
+$db->query = "select Spwd from STUDENT where Snumber='".$id."'";
+$db->DBQ();
+
+$num = $db->result->num_rows;
+$data = $db->result->fetch_row();
+else if($num == 1)
 {
-   echo "<script>alert('아이디와 비밀번호가 맞지 않습니다.');</script>";
+   if ($data[0] == $pass)
+   {
+      $_SESSION['id'] = $id;
+      $_SESSION['regist_type']= 2; // 학생
+      echo "<script>location.replace('/');</script>";
+   }
+   else 
+   {
+      echo "<script>alert('비밀번호가 맞지 않습니다.');</script>";
+      echo "<script>location.replace('/');</script>";
+   }
+}
+else
+{
+   echo "<script>alert('아이디가 일치하지 않습니다.');</script>";
    echo "<script>location.replace('/');</script>";
 }
+
+$db->DBO();
 ?>
