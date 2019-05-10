@@ -5,7 +5,7 @@ session_start();
 // class를 이용한 객체 지향 방식
 class Layout
 {
-   private $title="일사천리"; // 웹 페이지 제목
+   private $title="경북대학교 시험관리 시스템"; // 웹 페이지 제목
    public $link; // CSS 링크 태그
    public $style; // 스타일 적용
    public $content; // 메인 컨텐츠
@@ -45,7 +45,7 @@ class Layout
             <li>".$this->mypage."</li>
          </ul>
       </nav>
-      <div id='logo'><a href = '/'><img src='../logo.jpg' alt='경북대학교 시험관리 시스템' title='logo' style='width: 500px; margin-bottom: 20px;' /></a></div>";
+      <div id='logo'><a href = '/Course List/main_view.php'><img src='../logo.jpg' alt='경북대학교 시험관리 시스템' title='logo' style='width: 500px; margin-bottom: 20px;' /></a></div>";
          $this->LayoutMenu();
    }
    public function LayoutMenu() // <li> 을 이용해서 메뉴 부분을 호출
@@ -66,24 +66,7 @@ class Layout
    // 로그인을 출력할 지 로그아웃을 출력할 지 결정
    public  function LayoutLogin()
    {
-      if($_SESSION['id']=="")
-      {
-         if(strpos($_SERVER['PHP_SELF'], "login.php"))
-         {
-            $this->login="<a href='./registi.php'>회원가입</a><a href='../Login/login.php'><b style='color:#b3b2b2;'>로그인</b></a>";
-         } else
-         {
-            if(strpos($_SERVER['PHP_SELF'], "registi.php")){
-               $this->login="<a href='./registi.php'><b style='color:#b3b2b2;'>회원가입</b></a><a href='../Login/login.php'>로그인</a>";
-            }
-            else{
-               $this->login="<a href='./registi.php'>회원가입</a><a href='../Login/login.php'>로그인</a>";
-            }
-         }
-      } else
-      {
-         $this->login="<a href='./logout.php'>로그아웃</a>";
-      }
+      $this->login="<a href='./Login/logout.php'>로그아웃</a>";
    }
 
    //regist_type에 따라 마이페이지 출력
