@@ -8,8 +8,6 @@
 
   $id = $_SESSION['id'];
   $regist_type = $_SESSION['regist_type'];
-  $id = '0000';
-  $regist_type = 1;
 
   $db = new DBC;
 
@@ -115,7 +113,6 @@
                           <td>".$data[2]."</td>
                           <td>".$data[3]."</td>
                           <td>".$data[4]."</td>
-                          <td>".$data[5]."</td>
                           <td>
                             <form action = '../Exam Schedule/schedulei.php' method = 'post'>
                               <input type = hidden id = 'course_name' name = 'course_name'  value = '".$data[0]."'></input>
