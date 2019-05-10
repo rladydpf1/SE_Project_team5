@@ -1,7 +1,4 @@
 <?php
-// 세션을 시작합니다.
-// 로그인용
-session_start();
 // class를 이용한 객체 지향 방식
 class Layout
 {
@@ -10,7 +7,7 @@ class Layout
    public $style; // 스타일 적용
    public $content; // 메인 컨텐츠
    private $login; // 로그인이나 로그아웃을 출력
-   private $mypage; //마이페이지용 변수
+   private $message; //마이페이지용 변수
 
    // 레이아웃을 출력
    public function LayoutMain()
@@ -37,32 +34,16 @@ class Layout
    public function LayoutHeader()
    {
       $this->LayoutLogin();
-      $this->LayoutMypage();
+      $this->LayoutMessage();
       echo
       "<nav id='topbar'>
          <ul>
             <li>".$this->login."</li>
-            <li>".$this->mypage."</li>
+            <li>".$this->message."</li>
          </ul>
       </nav>
       <div id='logo'><a href = '/Course List/main_view.php'><img src='../logo.jpg' alt='경북대학교 시험관리 시스템' title='logo' style='width: 500px; margin-bottom: 20px;' /></a></div>";
-         $this->LayoutMenu();
    }
-   public function LayoutMenu() // <li> 을 이용해서 메뉴 부분을 호출
-   {
-     /*
-      echo "<nav id='menubar'>";
-      echo "<li class='category-list'><a class='category-link' href='./cate.php?cate_id=Outer'>아우터</a></li>";
-      echo "<li class='category-list'><a class='category-link' href='./cate.php?cate_id=Top'>상의</a></li>";
-      echo "<li class='category-list'><a class='category-link' href='./cate.php?cate_id=Pants'>바지</a></li>";
-      echo "<li class='category-list'><a class='category-link' href='./cate.php?cate_id=Skirt'>스커트</a></li>";
-      echo "<li class='category-list'><a class='category-link' href='./cate.php?cate_id=Shoes'>신발</a></li>";
-      echo "<li class='category-list'><a class='category-link' href='./cate.php?cate_id=Accessory'>악세사리</a></li>";
-      echo "<li class='category-list'><a class='category-link' href='./cate.php?cate_id=etc'>잡화</a></li>";
-      echo "</nav>";
-      */
-   }
-
    // 로그인을 출력할 지 로그아웃을 출력할 지 결정
    public  function LayoutLogin()
    {
@@ -70,22 +51,8 @@ class Layout
    }
 
    //regist_type에 따라 마이페이지 출력
-   public function LayoutMypage(){
-      if($_SESSION['id']!="")
-      {
-        if(strcmp($_SESSION['regist_type'],'customer')==0){
-          $this->mypage="<a href='./messageview.php'>메세지확인</a><a href='./message.php'>메세지전송</a><a href='./customer_ordered.php'>주문완료내역</a><a href='./customer.php'>피드백 진행 상품</a>";
-        }
-        else if(strcmp($_SESSION['regist_type'],'designer')==0){
-          $this->mypage="<a href='./messageview.php'>메세지확인</a><a href='./message.php'>메세지전송</a><a href='./designer_list.php'>내 상품 목록</a><a href='./designer.php'>상품등록</a>";
-        }
-        else if(strcmp($_SESSION['regist_type'],'admin')==0){
-          $this->mypage="<a href='./".$_SESSION['regist_type'].".php'>마이페이지</a>";
-        }
-        else {
-          echo "Error!";
-        }
-      }
+   public function LayoutMessage(){
+          $this->mypage="<a href='./messageview.php'>메세지확인</a>";
    }
 
    // 내용을 추가
