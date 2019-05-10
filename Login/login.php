@@ -33,9 +33,9 @@ if($num==1)
 $db->query = "select Spwd from STUDENT where Snumber='".$id."'";
 $db->DBQ();
 
-$num = $db->result->num_rows;
+$num1 = $db->result->num_rows;
 $data = $db->result->fetch_row();
-elseif($num == 1)
+elseif($num1 == 1)
 {
    if ($data[0] == $pass)
    {
