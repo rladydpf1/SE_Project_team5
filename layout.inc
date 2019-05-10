@@ -66,7 +66,7 @@ class Layout
    // 로그인을 출력할 지 로그아웃을 출력할 지 결정
    public  function LayoutLogin()
    {
-      $this->login="<a href='./Login/logout.php'>로그아웃</a>";
+      $this->login="<a href='/Login/logout.php'>로그아웃</a>";
    }
 
    //regist_type에 따라 마이페이지 출력

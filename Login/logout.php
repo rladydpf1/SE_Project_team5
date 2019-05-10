@@ -3,8 +3,6 @@
 //세션 값 모두 해제
 unset($_SESSION['id']);
 
-unset($_SESSION['permit']);
-
 unset($_SESSION['regist_type']);
 
 //세션 삭제

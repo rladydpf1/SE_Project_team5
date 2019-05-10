@@ -22,28 +22,28 @@ if($num==1)
    {
       $_SESSION['id'] = $id;
       $_SESSION['regist_type']= 1; // 교수
-      echo "<script>location.replace('/');</script>";
+      echo "<script>location.replace('/Course List/main_view.php');</script>";
    }
-   else 
+   else
    {
       echo "<script>alert('비밀번호가 맞지 않습니다.');</script>";
       echo "<script>location.replace('/');</script>";
    }
-} 
+}
 $db->query = "select Spwd from STUDENT where Snumber='".$id."'";
 $db->DBQ();
 
 $num1 = $db->result->num_rows;
 $data = $db->result->fetch_row();
-elseif($num1 == 1)
+if($num1 == 1)
 {
    if ($data[0] == $pass)
    {
       $_SESSION['id'] = $id;
       $_SESSION['regist_type']= 2; // 학생
-      echo "<script>location.replace('/');</script>";
+      echo "<script>location.replace('/Course List/main_view.php');</script>";
    }
-   else 
+   else
    {
       echo "<script>alert('비밀번호가 맞지 않습니다.');</script>";
       echo "<script>location.replace('/');</script>";
