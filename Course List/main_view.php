@@ -9,10 +9,11 @@
   $id = $_SESSION['id'];
   $regist_type = $_SESSION['regist_type'];
 
-
   $db = new DBC;
 
   $db->DBI();
+
+
 
   //학생이 수강중인 수업번호 가져오기
   if($regist_type == 2){
@@ -152,7 +153,7 @@
     $base->content .= "</table>";
   }
 
-  $db->DBO();
+
 
   /*
   else{
@@ -162,5 +163,5 @@
   */
 
   $base->LayoutMain();
-
+  $db->DBO();
 ?>

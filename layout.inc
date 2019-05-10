@@ -9,7 +9,7 @@ class Layout
    public $link; // CSS 링크 태그
    public $style; // 스타일 적용
    public $content; // 메인 컨텐츠
-     private $login; // 로그인이나 로그아웃을 출력
+   private $login; // 로그인이나 로그아웃을 출력
    private $mypage; //마이페이지용 변수
 
    // 레이아웃을 출력
