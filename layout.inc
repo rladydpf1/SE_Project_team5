@@ -1,5 +1,8 @@
 <?php
 // class를 이용한 객체 지향 방식
+
+session_start();
+
 class Layout
 {
    private $title="경북대학교 시험관리 시스템"; // 웹 페이지 제목
@@ -52,7 +55,7 @@ class Layout
 
    //regist_type에 따라 마이페이지 출력
    public function LayoutMessage(){
-          $this->mypage="<a href='./messageview.php'>메세지확인</a>";
+      $this->message="<a href='/Message/messageview.php'>메세지확인</a>";
    }
 
    // 내용을 추가
