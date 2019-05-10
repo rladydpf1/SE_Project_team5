@@ -1,17 +1,16 @@
 <?php
 
-
-
 require_once '../layout.inc';
 
-
-
 $base = new Layout;
-
-
-
 $base->link = '../style.css';
 
+if(isset($_POST['course_name'])){
+  $Cname = $_POST['course_name'];
+}
+else {
+  echo "ERROR";
+}
 
 //회원가입 페이지 양식 출력
 $base->content = "
@@ -25,7 +24,7 @@ $base->content = "
               <td><label for='course_name' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>강의명</label></td>
 
               <td class='text' style='margin-top:10px;'>
-                 소프트웨어공학
+                 ".$Cname."
               </td>
 
            </tr>
