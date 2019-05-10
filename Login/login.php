@@ -35,7 +35,7 @@ $db->DBQ();
 
 $num = $db->result->num_rows;
 $data = $db->result->fetch_row();
-else if($num == 1)
+elseif($num == 1)
 {
    if ($data[0] == $pass)
    {
