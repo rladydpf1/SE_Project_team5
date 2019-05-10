@@ -74,7 +74,7 @@ $base->content = "
 
               <td><label for='time' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>시간</label></td>
 
-              <td><input type='text' size='16' name='time' class='text-field'  placeholder='아이디' required/></td>
+              <td><input type='text' size='16' name='time' class='text-field'  placeholder='시간' required/></td>
 
            </tr>
 

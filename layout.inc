@@ -55,7 +55,8 @@ class Layout
 
    //regist_type에 따라 마이페이지 출력
    public function LayoutMessage(){
-      $this->message="<a href='/Message/messageview.php'>메세지확인</a>";
+      if($_SESSION['regist_type']==1)
+        $this->message="<a href='/Message/messageview.php'>메세지확인</a>";
    }
 
    // 내용을 추가
