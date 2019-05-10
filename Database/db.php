@@ -16,7 +16,7 @@ class DBC
 
 	{
 
-		$this->db = new mysqli('localhost', 'root', '1234', 'project'); //host, id, pw, database 순서입니다.
+		$this->db = new mysqli('localhost', 'root', '1234', 'PROJECT'); //host, id, pw, database 순서입니다.
 
 		$this->db->query('SET NAMES UTF8');
 
