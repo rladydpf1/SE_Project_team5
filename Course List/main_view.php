@@ -8,12 +8,12 @@
 
   $id = $_SESSION['id'];
   $regist_type = $_SESSION['regist_type'];
+  $id = '0000';
+  $regist_type = 1;
 
   $db = new DBC;
 
   $db->DBI();
-
-
 
   //학생이 수강중인 수업번호 가져오기
   if($regist_type == 2){
@@ -116,7 +116,12 @@
                           <td>".$data[3]."</td>
                           <td>".$data[4]."</td>
                           <td>".$data[5]."</td>
-                          <td><a href = 'www.naver.com'> 버-튼 </a></td>
+                          <td>
+                            <form action = '../Exam Schedule/schedulei.php' method = 'post'>
+                              <input type = hidden id = 'course_name' name = 'course_name'  value = '".$data[0]."'></input>
+                              <input type = submit id = 'submit' value = ''></input>
+                            </form>
+                          </td>
                         </tr>";
 
     }
@@ -152,8 +157,6 @@
 
     $base->content .= "</table>";
   }
-
-
 
   /*
   else{
