@@ -1,6 +1,6 @@
 <?php
 
-require_once './db.php';
+require_once '../Database/db.php';
 
 $db = new DBC;
 $db->DBI();
@@ -27,5 +27,6 @@ if($num==1)
 } else if(($id!="" || $pass!="") && $data[0]!=1) //아이디 비밀번호 정보가 맞지않을 경우
 {
    echo "<script>alert('아이디와 비밀번호가 맞지 않습니다.');</script>";
+   echo "<script>location.replace('/');</script>";
 }
 ?>
