@@ -4,11 +4,12 @@
   require_once '../Database/db.php';
 
   $base = new Layout;
-  $base->link = './style.css';
+  $base->link = './timetable.css';
 
   $id = $_SESSION['id'];
   $regist_type = $_SESSION['regist_type'];
-
+  $timetable;
+  $day = ["MON" => 2, 'THU' => 3, 'WEN' => 4, 'TUR' => 5, 'FRI' => 6, 'SAT' => 7, 'SUN' => 1];
   $db = new DBC;
 
   $db->DBI();
@@ -46,11 +47,12 @@
                           <td>".$data[4]."</td>
                           <td>".$data[5]."</td>
                         </tr>";
+
     }
 
     $base->content .= "</table>";
 
-    //시험 시간표 출력
+    //시험 시간표 출력 부분
     $base->content .= "<h1>시험 시간</h1><br><div class = 'test_timetable'>";
 
     $db->query = "SELECT	Cnumber, Cname, Lname, Exam_room, Estime, Eftime, Eday
@@ -64,7 +66,7 @@
     for($i = 0 ; $i < $num ; $i ++){
 
       $data = $db->result->fetch_row();
-
+      //텍스트 시험 과목들
       $base->content .= "<tr style='text-align: center; padding: 10px; ' id=course_text>
                           <td>".$data[0]."</td>
                           <td>".$data[1]."</td>
@@ -73,7 +75,86 @@
                           <td>".$data[4]."</td>
                           <td>".$data[5]."</td>
                           <td>".$data[6]."</td>
+                        </tr><br>";
+
+        $Stime = explode(':', $data[4]);
+        $Etime = explode(':', $data[5]);
+
+        $Stime[0] = intval($Stime[0]);
+        $Stime[1] = intval($Stime[1]);
+        $Etime[0] = intval($Etime[0]);
+        $Etime[1] = intval($Etime[1]);
+
+        //시작시간을 8시로해서 5분단위로 쪼갠 index
+        $j = intval(($Stime[0] * 60 + $Stime[1] - 480)/5);
+        $timetable[$j][$day[$data[6]]] = (string)$data[1] ."<br>".(string)$data[2] . ":" . + (string)(intval(($Etime[0] * 60 + $Etime[1] - 480)/5) - $j);
+
+    }
+
+    $base->content .= "</table>";
+
+    $base->content .= "<table>
+                        <tr>
+                          <td>시간</td>
+                          <td>일</td>
+                          <td>월</td>
+                          <td>화</td>
+                          <td>수</td>
+                          <td>목</td>
+                          <td>금</td>
+                          <td>토</td>
                         </tr>";
+
+
+    //그림 시험 과목출력
+    for($i = 0 ; $i < 180 ; $i ++){
+
+      $base->content .= "<tr>";
+      if($i % 12 == 0){
+        $time = (int)$i*5 / 60 + 8;
+
+        $base->content .= "<td rowspan = '12'>$time</td>";
+      }
+
+      for($j = 1 ; $j < 8 ; $j ++){
+        if($timetable[$i][$j]){
+
+          //랜덤색상 만들기
+          srand((float)microtime() * 1000000);
+          $mixnum1 = '51';
+          $mixnum2 = 'C1';
+
+          switch(rand(0,3)){
+            case 0:
+              $mixnum1 = '4D';
+              $mixnum2 = '8A';
+              break;
+            case 1:
+              $mixnum1 = '72';
+              $mixnum2 = 'C3';
+              break;
+            case 2:
+              $mixnum1 = '6C';
+              $mixnum2 = 'C1';
+              break;
+
+          }
+
+          $mix = [dechex(rand(hexdec($mixnum1), hexdec($mixnum2))), $mixnum1, $mixnum2];
+
+          shuffle($mix);
+
+          $color = '#'.$mix[0] . $mix[1] . $mix[2];
+
+          $code = explode(':', $timetable[$i][$j]);
+          $base->content .= "<td style = 'background : $color;' rowspan = '$code[1]'> $code[0] </td>";
+        }
+        else
+          $base->content .= "<td>.</td>";
+
+      }
+      $base->content .=  "</tr>";
+
     }
 
     $base->content .= "</table>";
