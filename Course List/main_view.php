@@ -25,7 +25,7 @@
 
     //수업 목록 출력
     $base->content .= "<h1>수강 목록</h1><br>";
-    $base->content .= "<table>";
+    $base->content .= "<table width = '100%'>";
     $base->content .= "<tr style=' padding: 10px;' id=course_title>
                         <th>Cname</th>
                         <th>Pnum</th>
@@ -87,15 +87,15 @@
 
         //시작시간을 8시로해서 5분단위로 쪼갠 index
         $j = intval(($Stime[0] * 60 + $Stime[1] - 480)/5);
-        $timetable[$j][$day[$data[6]]] = (string)$data[1] ."<br>".(string)$data[2] . ":" . + (string)(intval(($Etime[0] * 60 + $Etime[1] - 480)/5) - $j);
+        $timetable[$j][$day[$data[6]]] = (string)$data[1] ."<br>".(string)$data[2] ."<br>". (string)$data[3] ."<br>" . ":" . + (string)(intval(($Etime[0] * 60 + $Etime[1] - 480)/5) - $j);
 
     }
 
     $base->content .= "</table>";
 
-    $base->content .= "<table>
+    $base->content .= "<table width='100%' cellpadding='5' cellspacing='2' align='center' style='table-layout:fixed; word-break:break-all;'>
                         <tr>
-                          <td>시간</td>
+                          <td width = '6%''></td>
                           <td>일</td>
                           <td>월</td>
                           <td>화</td>
@@ -109,11 +109,15 @@
     //그림 시험 과목출력
     for($i = 0 ; $i < 180 ; $i ++){
 
-      $base->content .= "<tr>";
+
       if($i % 12 == 0){
+        $base->content .= "<tr style = ' border-top : 1px solid #444444;'>";
         $time = (int)$i*5 / 60 + 8;
 
-        $base->content .= "<td rowspan = '12'>$time</td>";
+        $base->content .= "<td rowspan = '12' style = 'vertical-align: top; border : 1px solid #444444'>$time</td>";
+      }
+      else{
+        $base->content .= "<tr>";
       }
 
       for($j = 1 ; $j < 8 ; $j ++){
@@ -155,7 +159,7 @@
         }
 
         else
-          $base->content .= "<td>$i $j</td>";
+          $base->content .= "<td></td>";
 
       }
       $base->content .=  "</tr>";
