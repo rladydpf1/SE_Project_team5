@@ -117,7 +117,9 @@
       }
 
       for($j = 1 ; $j < 8 ; $j ++){
-        if($timetable[$i][$j]){
+        if( $timetable[$i][$j] == 1 );//테이블을 만들지 않음
+
+        elseif ($timetable[$i][$j]){//셀 병합 길이 데이터가 존재할때
 
           //랜덤색상 만들기
           srand((float)microtime() * 1000000);
@@ -147,10 +149,13 @@
           $color = '#'.$mix[0] . $mix[1] . $mix[2];
 
           $code = explode(':', $timetable[$i][$j]);
+          for($k = 0; $k < $code[1] ; $k ++) // 이 자리부터 시간표만큼 테이블을 만들지 않음
+            $timetable[$i + $k][$j] = 1;
           $base->content .= "<td style = 'background : $color;' rowspan = '$code[1]'> $code[0] </td>";
         }
+
         else
-          $base->content .= "<td>.</td>";
+          $base->content .= "<td>$i $j</td>";
 
       }
       $base->content .=  "</tr>";
