@@ -18,8 +18,9 @@ $db->DBQ();
 
 if($db->result){
   while($data = $db->result->fetch_row())
-    $base->content .= " 발신인 : ".$data[1]." 제목 : <a href = './messagedetail.php?num=".$data[0]."'>".$data[2]."<br/>";
+    $base->content .= " 발신인 : ".$data[1]." 제목 : <a href = './messagedetail.php?num=".$data[0]."'>".$data[2]."</a><br/>";
 }
+$base->content .= "<button type='button' onclick='location.href=".'"./message.php"'."'>버튼</button>";
 $db->DBO();
 
 $base->LayoutMain();
