@@ -173,7 +173,7 @@
   //교수가 수업중인 목록 출력
   else if($regist_type == 1){
 
-    $db->query = "SELECT	Cname, Course_room, Cstime, Cftime, Cday
+    $db->query = "SELECT	Cname, Course_room, Cstime, Cftime, Cday, Cnumber
     FROM	COURSE, PROFESSOR, LOCATION, CLASSROOM, CLASSHOUR
     WHERE	Pnumber = '".$id."' AND Pnumber = Pnum AND Cnumber = Conum AND Course_room = Class_room;";
 
@@ -205,7 +205,7 @@
                           <td>".$data[4]."</td>
                           <td>
                             <form action = '../Exam Schedule/schedulei.php' method = 'post'>
-                              <input type = hidden id = 'course_name' name = 'course_name'  value = '".$data[0]."'></input>
+                              <input type = hidden id = 'course_number' name = 'course_number'  value = '".$data[5]."'></input>
                               <input type = submit id = 'submit' value = ''></input>
                             </form>
                           </td>
