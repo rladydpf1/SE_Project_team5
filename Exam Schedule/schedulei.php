@@ -5,8 +5,8 @@ require_once '../layout.inc';
 $base = new Layout;
 $base->link = '../style.css';
 
-if(isset($_POST['course_name'])){
-  $Cname = $_POST['course_name'];
+if(isset($_POST['course_number'])){
+  $Cnumber = $_POST['course_number'];
 }
 else {
   echo "ERROR";
@@ -24,7 +24,7 @@ $base->content = "
               <td><label for='course_name' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>강의명</label></td>
 
               <td class='text' style='margin-top:10px;'>
-                 ".$Cname."
+                 ".$Cnumber."
               </td>
 
            </tr>
