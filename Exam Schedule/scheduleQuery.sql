@@ -16,4 +16,6 @@ WHERE VCnumber = Cnumber AND Cnumber = Conum AND Course_room = '강의실' AND C
 -- 3. 위에서 저장한 강의의 시간대가 겹치는 경우를 찾는다.
 SELECT VCnumber
 FROM COURSE_LOCA JOIN CLASSHOUR ON Vcnumber = Conum
-WHERE TIME(Estime) BETWEEN '시작시간' AND '종료시간' OR TIME(Eftime) BETWEEN '시작시간' AND '종료시간';
+WHERE TIME('시작시간') BETWEEN Cstime AND Cftime OR TIME('종료시간') BETWEEN Cstime AND Cftime;
+-- 시작시간, 종료시간 포맷 : '00:00:00' 형태
+
