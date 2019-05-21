@@ -13,7 +13,7 @@ $db->DBI();
 
 $id = $_SESSION['id'];
 
-$db->query = "SELECT Mnumber, Sender, tiltle FROM MESSAGE WHERE Receiver = '".$id."'";
+$db->query = "SELECT Mnumber, Sender, title FROM MESSAGE WHERE Receiver = '".$id."'";
 $db->DBQ();
 
 if($db->result){
