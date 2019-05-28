@@ -77,7 +77,6 @@ if ($num == 1) { // 시험 일정이 중복되었는지 확인하는 부분
                 }
             </script>
             </form>";
-    }
 }
 else if ($num > 1) { // 시험 일정이 2개 이상 겹쳤을 경우에는 메시지를 보내지 않는다.
     echo "<script>alert('겹치는 일정이 2개 이상입니다.');</script>";
@@ -91,7 +90,7 @@ else { // 시험 일정 등록,
     $db->DBQ();
     echo "<script>alert('시험 일정이 등록되었습니다.');</script>";
     echo "<script>location.replace('../Course List/main_view.php');</script>";
-}
+} 
 
 $db->DBO();
 ?>
