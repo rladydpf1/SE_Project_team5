@@ -1,9 +1,18 @@
 <?php
 
 require_once '../layout.inc';
+require_once '../Database/db.php';
 
 $base = new Layout;
 $base->link = '../style.css';
+
+
+$db = new DBC;
+
+$db->DBI();
+
+$location_num='-';
+$classroom_name='-';
 
 if(isset($_POST['course_number'])){
   $Cnumber = $_POST['course_number'];
@@ -34,11 +43,21 @@ $base->content = "
               <td><label for='location_name' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>건물번호</label></td>
 
               <td>
-                <select name='location_name'>
-                  <option value='it5'>IT 융복합관</option>
-                  <option value='it4'>IT 4호관</option>
-                  <option value='it2'>IT 2호관</option>
-                  </select>
+                <select name='location_name'>";
+
+
+
+$db->query = "SELECT * FROM LOCATION";
+
+$db->DBQ();
+
+if($db->result){
+  while($data = $db->result->fetch_row())
+    $base->content .= " <option value='".$data[0]."'>".$data[1]."</option>";
+}
+else echo "error";
+
+$base->content .="</select>
               </td>
 
            </tr>
@@ -48,36 +67,23 @@ $base->content = "
               <td><label for='classroom' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>강의실</label></td>
 
               <td>
-                <select name='classroom'>
-                  <option value='it5'>IT 융복합관</option>
-                  <option value='it4'>IT 4호관</option>
-                  <option value='it2'>IT 2호관</option>
-                  </select>
+                <select name='classroom'>";
+
+$db->query = "SELECT * FROM CLASSROOM";
+
+$db->DBQ();
+
+if($db->result){
+  while($data = $db->result->fetch_row())
+    $base->content .= " <option value='".$data[0]."'>".$data[0]."</option>";
+}
+else echo "error";
+
+
+$base->content .="</select>
               </td>
 
            </tr>
-
-           <tr>
-
-              <td><label for='day' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>요일</label></td>
-
-              <td>
-                <select name='day'>
-                  <option value='mon'>월</option>
-                  <option value='tue'>화</option>
-                  <option value='wed'>수</option>
-                  </select>
-              </td>
-
-           </tr>
-           <tr>
-
-              <td><label for='time' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>시간</label></td>
-
-              <td><input type='text' size='16' name='time' class='text-field'  placeholder='시간' required/></td>
-
-           </tr>
-
 
            <tr>
 
