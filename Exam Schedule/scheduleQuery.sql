@@ -33,6 +33,9 @@ FROM EXAM JOIN EXAM_VIEW ON Enumber = VEnumber
 WHERE TIME('시작시간') BETWEEN Estime AND Eftime OR TIME('종료시간') BETWEEN Estime AND Eftime;
 -- VEnumber이 하나 이상 있을 경우 사용자는 각 교수에게 메시지를 보낼 것인지 결정한다.
 
+-- 학생의 시간표가 겹칠 경우 경고 메시지를 보낸다.
+-- 1. 
+
 -- 여기까지 겹치는 경우가 없을 경우 해당 시험일정을 등록한다.
 SELECT MAX(Enumber) AS max_number FROM EXAM;
 INSERT INTO EXAM VALUES (max_number + 1, 강의, '강의실', '시작시간', '종료시간', '요일');
