@@ -9,8 +9,10 @@ class Layout
    public $link; // CSS 링크 태그
    public $style; // 스타일 적용
    public $content; // 메인 컨텐츠
+   public $script; //스크립트
    private $login; // 로그인이나 로그아웃을 출력
    private $message; //마이페이지용 변수
+
 
    // 레이아웃을 출력
    public function LayoutMain()
@@ -20,6 +22,7 @@ class Layout
       echo "<title>".$this->title."</title>";
       echo "<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'>";
       echo $this->LayoutStyle(); // 스타일을 레이아웃에 추가.
+      echo $this->LayoutScript();
       echo "</head>\n<body>\n <fieldset style='width: 73.8%; margin-left: auto; margin-right: auto; border-style: none;'><div id='container'>";
       echo   $this->LayoutHeader(); // 헤더 부분을 레이아웃에 추가
       echo   $this->LayoutContent(); // 컨텐츠 부분을 레이아웃에 추가
@@ -31,6 +34,11 @@ class Layout
    {
       echo "<link rel='stylesheet' type='text/css' href='".$this->link."'/> ";
       echo "<style>".$this->style."</style>";
+   }
+
+   public function LayoutScript()
+   {
+      echo "<script>".$this->script."</script>";
    }
 
    // 헤더 부분 추가
