@@ -33,9 +33,9 @@ $data = $db->result->fetch_row();
 if ($num == 1) { // 강의가 중복되었는지 확인하는 부분
     if ($data[1] != $id) { // 자기 자신의 수업일 경우엔 그대로 진행
         $base->content .= "<form method = post name = form action = '../Message/message.php'>
-            <input type = hidden id = 'sender' name = 'sender' value = '".$id."' </input>
-            <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."' </input>
-            <input type = hidden id = 'course_number' name = 'course_number' value = '".$data[0]."' </input>
+            <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
+            <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."'> </input>
+            <input type = hidden id = 'course_number' name = 'course_number' value = '".$data[0]."'> </input>
             <script> 
                 if (confirm('겹치는 일정이 있습니다. 메시지를 보내시겠습니까?') == true){
                     document.form.submit();
@@ -65,9 +65,9 @@ $num = $db->result->num_rows;
 $data = $db->result->fetch_row();
 if ($num == 1) { // 시험 일정이 중복되었는지 확인하는 부분
     $base->content .= "<form method = post name = form action = '../Message/message.php'>
-            <input type = hidden id = 'sender' name = 'sender' value = '".$id."' </input>
-            <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."' </input>
-            <input type = hidden id = 'course_number' name = 'course_number' value = '".$data[0]."' </input>
+            <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
+            <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."'> </input>
+            <input type = hidden id = 'course_number' name = 'course_number' value = '".$data[0]."'> </input>
             <script> 
                 if (confirm('겹치는 일정이 있습니다. 메시지를 보내시겠습니까?') == true){
                     document.form.submit();
