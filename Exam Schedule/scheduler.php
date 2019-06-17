@@ -30,12 +30,17 @@ $db->query = "SELECT DISTINCT VCnumber, Pnum
 $db->DBQ();
 $num = $db->result->num_rows;
 $data = $db->result->fetch_row();
-if ($num == 1) { // 강의가 중복되었는지 확인하는 부분
+if ($num == 1) { // 수업이 중복되었는지 확인하는 부분
     if ($data[1] != $id) { // 자기 자신의 수업일 경우엔 그대로 진행
         $base->content .= "<form method = post name = form action = '../Message/message.php'>
             <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
             <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."'> </input>
             <input type = hidden id = 'course_number' name = 'course_number' value = '".$data[0]."'> </input>
+            <input type = hidden id = 'location' name = 'location' value = '".$location."'> </input>
+            <input type = hidden id = 'class_room' name = 'class_room' value = '".$class_room."'> </input>
+            <input type = hidden id = 'day' name = 'day' value = '".$day."'> </input>
+            <input type = hidden id = 'stime' name = 'stime' value = '".$stime."'> </input>
+            <input type = hidden id = 'ftime' name = 'ftime' value = '".$ftime."'> </input>
             <script> 
                 if (confirm('겹치는 일정이 있습니다. 메시지를 보내시겠습니까?') == true){
                     document.form.submit();
@@ -47,8 +52,8 @@ if ($num == 1) { // 강의가 중복되었는지 확인하는 부분
             </form>";
     }
 }
-else if ($num > 1) { // 시험 일정이 2개 이상 겹쳤을 경우에는 메시지를 보내지 않는다.
-    echo "<script>alert('겹치는 일정이 2개 이상입니다.');</script>";
+else if ($num > 1) { // 수업 시간이 2개 이상 겹쳤을 경우에는 메시지를 보내지 않는다.
+    echo "<script>alert('겹치는 수업 일정이 2개 이상입니다.');</script>";
     echo "<script>location.replace('schedulei.php');</script>";
 }
 
@@ -63,26 +68,8 @@ $db->query = "SELECT DISTINCT VEnumber, Pnum
 $db->DBQ();
 $num = $db->result->num_rows;
 $data = $db->result->fetch_row();
-if ($num == 1) { // 시험 일정이 중복되었는지 확인하는 부분
-    $base->content .= "<form method = post name = form action = '../Message/message.php'>
-            <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
-            <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."'> </input>
-            <input type = hidden id = 'course_number' name = 'course_number' value = '".$data[0]."'> </input>
-            <script> 
-                if (confirm('겹치는 일정이 있습니다. 메시지를 보내시겠습니까?') == true){
-                    document.form.submit();
-                }
-                else {
-                    location.replace('schedulei.php');
-                }
-            </script>
-            </form>";
-}
-else if ($num > 1) { // 시험 일정이 2개 이상 겹쳤을 경우에는 메시지를 보내지 않는다.
-    echo "<script>alert('겹치는 일정이 2개 이상입니다.');</script>";
-    echo "<script>location.replace('schedulei.php');</script>";
-}
-else { // 시험 일정 등록,
+
+if ($num < 1) { // 시험 일정이 겹칠 경우에는 요청 메시지를 보내지 않는다.
     $db->query = "SELECT MAX(Enumber) FROM EXAM ";
     $db->DBQ();
     $data = $db->result->fetch_row();
@@ -90,7 +77,7 @@ else { // 시험 일정 등록,
     $db->DBQ();
     echo "<script>alert('시험 일정이 등록되었습니다.');</script>";
     echo "<script>location.replace('../Course List/main_view.php');</script>";
-} 
+}
 
 $db->DBO();
 ?>
