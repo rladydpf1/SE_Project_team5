@@ -20,22 +20,16 @@ SELECT Snum AS VSnum
 FROM TAKE_CLASS
 WHERE Cno = 수업번호;
 
---2. 학생들이 듣는 다른 수업들을 저장한다.
-CREATE OR REPLACE VIEW COURSE_VIEW AS
-SELECT DISTINCT Cno AS VCno
-FROM TAKE_CLASS, TAKE_VIEW
-WHERE Snum = VSnum AND NOT Cno = 수업번호;
+--2. 학생들이 듣는 다른 수업들과 그 수업들의 시험 일정을 저장한다. + 겹치는 요일
+CREATE OR REPLACE VIEW EXAM_VIEW AS
+SELECT DISTINCT Enumber AS VEnumber
+FROM TAKE_CLASS, TAKE_VIEW, EXAM
+WHERE Snum = VSnum AND NOT Cno = 수업번호 AND Cno = Cnum AND Eday = '요일';
 
---3. 그 수업들의 요일과 시험 일정의 요일이 겹치는 수업을 저장한다.
-CREATE OR REPLACE VIEW DAY_VIEW AS 
-SELECT VCno AS DCno
-FROM COURSE_VIEW, COURSE, CLASSHOUR
-WHERE Vcno = Cnumber AND Cnumber = Conum AND Cday = '요일';
-
---4. 나머지에서 시간대가 겹치는 경우를 찾는다.
-SELECT DISTINCT DCno
-FROM DAY_VIEW JOIN CLASSHOUR ON DCno = Conum
-WHERE TIME('시작시간') BETWEEN Cstime AND Cftime OR TIME('종료시간') BETWEEN Cstime AND Cftime;
+--3. 나머지에서 시간대가 겹치는 경우를 찾는다.
+SELECT DISTINCT Enumber
+FROM EXAM_VIEW JOIN EXAM ON VEnumber = Enumber
+WHERE TIME('시작시간') BETWEEN Estime AND Eftime OR TIME('종료시간') BETWEEN Estime AND Eftime;
 
 -- 해당 시험일정과 겹치는 수업이 없는지 확인한다.
 -- 1. 시험일정을 등록하지 않은 강의를 먼저 저장한다.

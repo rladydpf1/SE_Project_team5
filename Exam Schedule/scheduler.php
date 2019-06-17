@@ -14,6 +14,53 @@ $day = $_POST['day'];
 $stime = $_POST['stime'];
 $ftime = $_POST['ftime'];
 
+// 해당 시험일정과 겹치는 다른 시험일정이 없는지 확인한다.
+$db->query = "CREATE OR REPLACE VIEW EXAM_VIEW AS
+    SELECT Enumber AS VEnumber, Pnum
+    FROM EXAM, COURSE
+    WHERE Cnum = Cnumber AND Exam_room = '".$class_room."' AND Eday = '".$day."'";
+$db->DBQ();
+$db->query = "SELECT DISTINCT VEnumber, Pnum
+    FROM EXAM JOIN EXAM_VIEW ON Enumber = VEnumber
+    WHERE TIME('".$stime."') BETWEEN Estime AND Eftime OR TIME('".$ftime."') BETWEEN Estime AND Eftime";
+$db->DBQ();
+$num = $db->result->num_rows;
+$data = $db->result->fetch_row();
+
+if ($num >= 1) { // 시험일정이 겹쳤을 경우에는 요청 메시지를 보내지 않는다.
+    echo "<script>alert('겹치는 시험일정이 있습니다. 다른 일정을 선택해 주십시오.');</script>";
+    echo "<script>location.replace('schedulei.php');</script>";
+}
+
+// 학생의 시간표가 겹칠 경우 경고 메시지를 보낸다.
+$db->query = "CREATE OR REPLACE VIEW TAKE_VIEW AS
+    SELECT Snum AS VSnum
+    FROM TAKE_CLASS
+    WHERE Cno = ".$Cnumber."";
+$db->DBQ();
+$db->query = "CREATE OR REPLACE VIEW EXAM_VIEW AS
+SELECT DISTINCT Enumber AS VEnumber
+FROM TAKE_CLASS, TAKE_VIEW, EXAM
+WHERE Snum = VSnum AND NOT Cno = ".$Cnumber." AND Cno = Cnum AND Eday = '".$day."'";
+$db->DBQ();
+$db->query = "SELECT DISTINCT Enumber
+FROM EXAM_VIEW JOIN EXAM ON VEnumber = Enumber
+WHERE TIME('".$stime."') BETWEEN Estime AND Eftime OR TIME('".$ftime."') BETWEEN Estime AND Eftime";
+$db->DBQ();
+$num = $db->result->num_rows;
+$data = $db->result->fetch_row();
+if ($num >= 1) { // 해당 수업을 듣는 학생의 다른 시험 일정이 1개 이상 존재하는 경우
+    echo "<script> if (confirm('경고 : 해당 수업을 듣는 학생의 시험일정과 겹칩니다. 계속 진행하시겠습니까?') == true){
+        alert('계속 진행합니다.');
+    }
+    else {
+        alert('시험일정을 취소합니다.');
+        location.replace('schedulei.php');
+    }
+    </script>";
+}
+
+// 해당 시험일정과 겹치는 수업이 없는지 확인한다.
 $db->query = "CREATE OR REPLACE VIEW NOT_EXIST_EXAM AS 
     SELECT Cnumber AS VCnumber 
     FROM COURSE 
@@ -31,7 +78,7 @@ $db->DBQ();
 $num = $db->result->num_rows;
 $data = $db->result->fetch_row();
 if ($num == 1) { // 수업이 중복되었는지 확인하는 부분
-    if ($data[1] != $id) { // 자기 자신의 수업일 경우엔 그대로 진행
+    if ($data[1] != $id) { // 자기 자신의 수업일 경우엔 그대로 진행한다.
         $base->content .= "<form method = post name = form action = '../Message/message.php'>
             <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
             <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."'> </input>
@@ -57,19 +104,7 @@ else if ($num > 1) { // 수업 시간이 2개 이상 겹쳤을 경우에는 메�
     echo "<script>location.replace('schedulei.php');</script>";
 }
 
-$db->query = "CREATE OR REPLACE VIEW EXAM_VIEW AS
-    SELECT Enumber AS VEnumber, Pnum
-    FROM EXAM, COURSE
-    WHERE Cnum = Cnumber AND Exam_room = '".$class_room."' AND Eday = '".$day."'";
-$db->DBQ();
-$db->query = "SELECT DISTINCT VEnumber, Pnum
-    FROM EXAM JOIN EXAM_VIEW ON Enumber = VEnumber
-    WHERE TIME('".$stime."') BETWEEN Estime AND Eftime OR TIME('".$ftime."') BETWEEN Estime AND Eftime";
-$db->DBQ();
-$num = $db->result->num_rows;
-$data = $db->result->fetch_row();
-
-if ($num < 1) { // 시험 일정이 겹칠 경우에는 요청 메시지를 보내지 않는다.
+else { // 여기까지 겹치는 경우가 없을 경우 해당 시험일정을 등록한다.
     $db->query = "SELECT MAX(Enumber) FROM EXAM ";
     $db->DBQ();
     $data = $db->result->fetch_row();
