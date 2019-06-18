@@ -21,10 +21,14 @@ else {
   echo "ERROR";
 }
 
-//회원가입 페이지 양식 출력
+$location_name = $_GET['location_name'];
+$classroom = $_GET['classroom'];
+
+$base->content = "";
+
 $base->content = "
 
-   <form action='./registo.php' method='post'>
+   <form action='./schedulei.php' method='GET'>
      <div>
         <p> 시험 일정 선택 </p>
         <table style='width: 60%;background-color: #ffffff; margin-left: auto; margin-right: auto; border-radius: 5px; height: 500px; border-top: solid; border-bottom:solid;'>
@@ -43,7 +47,7 @@ $base->content = "
               <td><label for='location_name' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>건물번호</label></td>
 
               <td>
-                <select name='location_name'>";
+                <select name='location_name' id = 'location'>";
 
 
 
@@ -52,9 +56,16 @@ $db->query = "SELECT * FROM LOCATION";
 $db->DBQ();
 
 if($db->result){
-  while($data = $db->result->fetch_row())
-    $base->content .= " <option value='".$data[0]."'>".$data[1]."</option>";
+  while($data = $db->result->fetch_row()){
+    if($location_num == $data[1]){
+      $base->content .= " <option value='".$data[0]."' selected = 'selected'>".$data[1]."</option>";
+    }
+    else{
+      $base->content .= " <option value='".$data[0]."'>".$data[1]."</option>";
+    }
+  }
 }
+
 else echo "error";
 
 $base->content .="</select>
@@ -67,16 +78,24 @@ $base->content .="</select>
               <td><label for='classroom' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>강의실</label></td>
 
               <td>
-                <select name='classroom'>";
+                <select name='classroom' id = classroom>";
 
 $db->query = "SELECT * FROM CLASSROOM";
 
 $db->DBQ();
 
 if($db->result){
-  while($data = $db->result->fetch_row())
-    $base->content .= " <option value='".$data[0]."'>".$data[0]."</option>";
+  while($data = $db->result->fetch_row()){
+
+    if($classroom == $data[0]){
+      $base->content .= " <option value='".$data[0]."' selected='selected'>".$data[0]."</option>";
+    }
+    else{
+      $base->content .= " <option value='".$data[0]."'>".$data[0]."</option>";
+    }
+  }
 }
+
 else echo "error";
 
 
