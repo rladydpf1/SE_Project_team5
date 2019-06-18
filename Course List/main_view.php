@@ -4,7 +4,9 @@
   require_once '../Database/db.php';
 
   $base = new Layout;
-  $base->link = './timetable.css';
+  $base->link = '../style.css';
+
+  $base->style = ' th, td{ border-right:1px solid #808080; }';
 
   $id = $_SESSION['id'];
   $regist_type = $_SESSION['regist_type'];
@@ -40,14 +42,14 @@
 
     //수업 목록 출력
     $base->content .= "<h1>수강 목록</h1><br>";
-    $base->content .= "<table width = '100%'>";
+    $base->content .= "<table id = 'maintable' width = '100%'>";
     $base->content .= "<tr style='text-align: center; padding: 10px;  border : 1px solid #808080; ' id=course_title>
-                        <td>Cname</td>
+                        <td>강의</td>
                         <td>Pnum</td>
-                        <td>Course_room</td>
-                        <td>Cstime</td>
-                        <td>Cftime</td>
-                        <td>Cday</td>
+                        <td>강의실</td>
+                        <td>시작 시간</td>
+                        <td>종료 시간</td>
+                        <td>요일</td>
                       </tr>";
 
     for($i = 0 ; $i < $num ; $i ++){
@@ -111,7 +113,7 @@
 
     $base->content .= "</table>";
 
-    $base->content .= "<table width='100%' cellpadding='5' cellspacing='2' align='center' style='table-layout:fixed; word-break:break-all;'>
+    $base->content .= "<table id = 'maintable' width='100%' cellpadding='5' cellspacing='2' align='center' style='table-layout:fixed; word-break:break-all;'>
                         <tr>
                           <td width = '6%''></td>
                           <td>일</td>
@@ -200,13 +202,13 @@
     $num = $db->result->num_rows;
 
     $base->content .= "<h1>수업 목록</h1><br>";
-    $base->content .= "<table>";
+    $base->content .= "<table id = 'maintable'>";
     $base->content .= "<tr style=' border : 1px solid #808080; padding: 10px;' id=course_title>
-                        <th>Cname</th>
-                        <th>Course_room</th>
-                        <th>Cstime</th>
-                        <th>Cftime</th>
-                        <th>Cday</th>
+                        <th>강의</th>
+                        <th>강의실</th>
+                        <th>시작 시간</th>
+                        <th>종료 시간</th>
+                        <th>요일</th>
                         <th>시험시간 설정</th>
                       </tr>";
 
@@ -274,7 +276,7 @@
 
     $base->content .= "</table>";
 
-    $base->content .= "<table width='100%' cellpadding='5' cellspacing='2' align='center' style='table-layout:fixed; word-break:break-all;'>
+    $base->content .= "<table id = 'maintable' width='100%' cellpadding='5' cellspacing='2' align='center' style='table-layout:fixed; word-break:break-all;'>
                         <tr>
                           <td width = '6%''></td>
                           <td>일</td>
