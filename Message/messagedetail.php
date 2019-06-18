@@ -17,7 +17,7 @@ $db = new DBC;
 
 $db->DBI();
 
-$db->query = "SELECT Sender, title, Contents, Mtime FROM MESSAGE WHERE Mnumber = '".$num."'";
+$db->query = "SELECT Sender, title, Contents, Mtime FROM MESSAGE WHERE Mnumber = ".$num."";
 
 $db->DBQ();
 
