@@ -6,7 +6,7 @@
   $base = new Layout;
   $base->link = '../style.css';
 
-  $base->style = ' th, td{ border-right:1px solid #808080; }';
+  $base->style = ' th, td{ border-right:1px solid #808080; } h1 {text-align : center;}';
 
   $id = $_SESSION['id'];
   $regist_type = $_SESSION['regist_type'];
