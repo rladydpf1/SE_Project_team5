@@ -18,7 +18,7 @@ SELECT * FROM MESSAGE WHERE Mnumber = $num;
 -- 거절한 경우 : 거절했다고 자동으로 답장을 보낸다.
 SELECT Receiver, Sender, Title FROM MESSAGE WHERE Mnumber = $num;
 UPDATE MESSAGE 
-SET Receiver = '$Sender' AND Sender = '$Receiver' AND Title = '<거절> ' + '$title'
+SET Receiver = '$Sender', Sender = '$Receiver', Title = '<거절> ' + '$title'
 WHERE Mnumber = $num;
 
 -- 수락한 경우 :
@@ -31,5 +31,5 @@ INSERT INTO EXAM VALUES (max_number + 1, $SCnumber, '$Course_room', '$Mstime', '
 --수락했다고 자동으로 답장을 보낸다.
 SELECT Receiver, Sender, Title FROM MESSAGE WHERE Mnumber = $num;
 UPDATE MESSAGE 
-SET Receiver = '$Sender' AND Sender = '$Receiver' AND Title = '<수락> ' + '$title'
+SET Receiver = '$Sender', Sender = '$Receiver', Title = '<수락> ' + '$title'
 WHERE Mnumber = $num;
