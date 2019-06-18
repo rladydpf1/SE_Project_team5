@@ -17,10 +17,11 @@ if ($accept == 0) { // 거절한 경우
     $db->query = "SELECT Receiver, Sender, Title FROM MESSAGE WHERE Mnumber = ".$num."";
     $db->DBQ();
     $data = $db->result->fetch_row();
-    $db->query = "UPDATE MESSAGE 
-        SET Receiver = '".$data[0]."', Sender = '".$data[1]."', Title = '<거절> '.'".$data[2]."', Mtime = NOW()
-        WHERE Mnumber = ".$num."";
-    echo "<script>alert('거절하였습니다.');history.back();</script>";
+    $db->query = "UPDATE MESSAGE
+        SET Receiver = '".$data[1]."', Sender = '".$data[0]."', Title = '<거절> ".$data[2]."', Mtime = NOW()
+        WHERE Mnumber = ".$num;
+    $db->DBQ();
+    echo "<script>alert('거절하였습니다.');location.replace('./messageview.php');</script>";
 }
 
 elseif ($accept == 1) { // 수락한 경우
@@ -37,14 +38,16 @@ elseif ($accept == 1) { // 수락한 경우
     $db->DBQ();
     $data = $db->result->fetch_row();
     $db->query = "INSERT INTO EXAM VALUES (".$max_number.", ".$data[0].", '".$data[1]."', '".$data[2]."', '".$data[3]."', '".$data[4]."')";
+    $db->DBQ();
 
-    $db->query = "SELECT Receiver, Sender, Title FROM MESSAGE WHERE Mnumber = ".$num."";
+    $db->query = "SELECT Receiver, Sender, Title FROM MESSAGE WHERE Mnumber = ".$num;
     $db->DBQ();
     $data = $db->result->fetch_row();
-    $db->query = "UPDATE MESSAGE 
-        SET Receiver = '".$data[0]."', Sender = '".$data[1]."', Title = '<수락> '.'".$data[2]."', Mtime = NOW()
-        WHERE Mnumber = ".$num."";
-    echo "<script>alert('수락하였습니다.');history.back();</script>";
+    $db->query = "UPDATE MESSAGE
+        SET Receiver = '".$data[1]."', Sender = '".$data[0]."', Title = '<수락> ".$data[2]."', Mtime = NOW()
+        WHERE Mnumber = ".$num;
+    $db->DBQ();
+    echo "<script>alert('수락하였습니다.');location.replace('./messageview.php');</script>";
 }
 
 $base->LayoutMain();

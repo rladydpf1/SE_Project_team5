@@ -12,6 +12,7 @@ if(!isset($_GET['num'])){
 
 }
 $num = $_GET['num'];
+$link='./messageaprocess.php';
 
 $db = new DBC;
 
@@ -38,10 +39,21 @@ if($db->result){
       시간 : ".$data[6]."~".$data[7]." <br/>
       내용 : ".$data[9]." <br/>
       발신 시각 : ".$data[10]." <br/>
-
+      <form action='./messageprocess.php'>
+        <input type = hidden id = 'accept' name = 'accept' value = 1> </input>
+        <input type = hidden id = 'num' name = 'num' value = '".$num."'> </input>
+        <input type='submit' value='수락'>
+      </form>
+      <form action='./messageprocess.php'>
+        <input type = hidden id = 'accept' name = 'accept' value = 0> </input>
+        <input type = hidden id = 'num' name = 'num' value = '".$num."'> </input>
+        <input type='submit' value='거부'>
+      </form>
       ";
   }
 }
+
+
 
 $base->LayoutMain();
 
