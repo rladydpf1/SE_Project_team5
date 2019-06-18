@@ -32,7 +32,7 @@ if ($num >= 1) { // 시험일정이 겹쳤을 경우에는 요청 메시지를 �
     echo "<script>location.replace('schedulei.php');</script>";
 }
 
-// 학생의 시간표가 겹칠 경우 경고 메시지를 보낸다.
+// 학생의 다른 시험일정이 겹칠 경우 경고 메시지를 보낸다.
 $db->query = "CREATE OR REPLACE VIEW TAKE_VIEW AS
     SELECT Snum AS VSnum
     FROM TAKE_CLASS
@@ -107,8 +107,14 @@ else if ($num > 1) { // 수업 시간이 2개 이상 겹쳤을 경우에는 메�
 else { // 여기까지 겹치는 경우가 없을 경우 해당 시험일정을 등록한다.
     $db->query = "SELECT MAX(Enumber) FROM EXAM ";
     $db->DBQ();
+    $num = $db->result->num_rows;
     $data = $db->result->fetch_row();
-    $db->query = "INSERT INTO EXAM VALUES (".$data[0]." + 1, ".$Cnumber.", '".$class_room."', '".$stime."', '".$ftime."', '".$day."')";
+    if ($num >= 1) {
+        $db->query = "INSERT INTO EXAM VALUES (".$data[0]." + 1, ".$Cnumber.", '".$class_room."', '".$stime."', '".$ftime."', '".$day."')";
+    }
+    else { // 숫자가 없을 경우
+        $db->query = "INSERT INTO EXAM VALUES (1, ".$Cnumber.", '".$class_room."', '".$stime."', '".$ftime."', '".$day."')";
+    }
     $db->DBQ();
     echo "<script>alert('시험 일정이 등록되었습니다.');</script>";
     echo "<script>location.replace('../Course List/main_view.php');</script>";
