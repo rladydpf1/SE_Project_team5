@@ -1,5 +1,11 @@
 -- 시험일정 선택 페이지에서 사용할 쿼리
+-- schedulei.php :
+SELECT MAX(Lnumber) AS max_number FROM LOCATION; -- for문을 돌릴 때 쓰는 값
+SELECT Class_room FROM CLASSROOM WHERE Lnum = $i;
+SELECT Estime, Efitme, Cname FROM EXAM, COURSE
+WHERE Cnumber = Cnum AND Exam_room = '$Class_room' AND Eday = '$day';
 
+-- scheduler.php :
 -- 해당 시험일정과 겹치는 다른 시험일정이 없는지 확인한다.
 -- 1. 시험일정의 강의실, 요일이 겹치는 경우를 먼저 저장한다.
 CREATE OR REPLACE VIEW EXAM_VIEW AS
