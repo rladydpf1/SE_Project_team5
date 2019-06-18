@@ -6,7 +6,7 @@ buy_but/* body all */
 body {
    margin:0;
    color:#000000;
-   text-align: center;
+   /*text-align: center;*/
 }
 
 p {
