@@ -13,14 +13,15 @@ $stime = $_POST['stime'];
 $ftime = $_POST['ftime'];*/
 
 
-$sender = '보냄';
-$receiver = '받음';
-$course_number = '1';
+$sender = '0000';
+$receiver = '0001';
+$course_number = '3';
 $location = '융복';
 $class_room = '351호';
 $day = '수';
-$stime = '13시';
-$ftime = '14시';
+$stime = '13';
+$ftime = '14';
+$scnumber='4';
 
 
 $base = new Layout;
@@ -33,8 +34,8 @@ $base->content = "<form action='messageSender.php' method='post'>
 <p> 쪽지 </p>
 <table style='margin-bottom: -15px;'>
   <tr>
-    <td style='text-align:left;'><label for='Title' id='msg-table-text'>제목</label></td>
-    <td><input type='text' id='Title' name='Title'maxlength='40' size='30' required/></td>
+    <td style='text-align:left;'><label for='title' id='msg-table-text'>제목</label></td>
+    <td><input type='text' id='title' name='title'maxlength='40' size='30' required/></td>
   </tr>
   <tr>
     <td style='text-align:left;'><label for='sender' id='msg-table-text'> 보내는 사람 </td>
@@ -61,13 +62,23 @@ $base->content = "<form action='messageSender.php' method='post'>
     <td>".$stime."~".$ftime."</td>
   </tr>
   <tr>
-    <td style='text-align:left;'><label for='body' id='msg-table-text'>내용</label></td>
+    <td style='text-align:left;'><label for='contents' id='msg-table-text'>내용</label></td>
+    <td><p style='text-align:left;'><textarea name='contents' rows='10' cols='80' type='text' required></textarea></p></td>
   </tr>
 </table>
 
-<p style='text-align:left;'><textarea name='body' rows='10' cols='80' type='text' required></textarea></p>
+
   <p><input type='submit' value='전송' id='submit-btn'/></p>
 </fieldset>
+  <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
+  <input type = hidden id = 'receiver' name = 'receiver' value = '".$receiver."'> </input>
+  <input type = hidden id = 'rcnumber' name = 'rcnumber' value = '".$course_number."'> </input>
+  <input type = hidden id = 'location' name = 'location' value = '".$location."'> </input>
+  <input type = hidden id = 'class_room' name = 'class_room' value = '".$class_room."'> </input>
+  <input type = hidden id = 'day' name = 'day' value = '".$day."'> </input>
+  <input type = hidden id = 'stime' name = 'stime' value = '".$stime."'> </input>
+  <input type = hidden id = 'ftime' name = 'ftime' value = '".$ftime."'> </input>
+  <input type = hidden id = 'scnumber' name = 'scnumber' value = '".$scnumber."'> </input>
 </form>";
 
 $base->LayoutMain();
