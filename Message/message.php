@@ -38,8 +38,8 @@ $base->content = "<form action='messageSender.php' method='post'>
     <td><input type='text' id='title' name='title'maxlength='40' size='30' required/></td>
   </tr>
   <tr>
-    <td style='text-align:left;'><label for='sender' id='msg-table-text'> 보내는 사람 </td>
-    <td>".$sender."</td>
+    <td style='text-align:left;'><label for='sender' id='msg-table-text'> 받는 사람 </td>
+    <td>".$receiver."</td>
   </tr>
   <tr>
     <td style='text-align:left;'><label for='Receiver' id='msg-table-text'> 강의 번호 </td>

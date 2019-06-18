@@ -32,7 +32,7 @@ if($db->result){
   ";
   while($data = $db->result->fetch_row())
     $base->content .= "<tr>
-      <td><a href='./messagedetail.php'>".$data[1]."</a></td>
+      <td><a href='./messagedetail.php?num=".$data[0]."'>".$data[1]."</a></td>
       <td>".$data[2]."</td>
       <td>".$data[3]."</td>
       <td>".$data[4]."</td>
