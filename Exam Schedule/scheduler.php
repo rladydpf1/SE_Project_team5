@@ -8,7 +8,7 @@ $base->link = './timetable.css';
 $db = new DBC;
 $db->DBI();
 
-$date = ['', 'SUN', 'MON', 'TUE', 'WEN', 'TUR', 'FRI', 'SAT'];
+$date = ['', 'SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'];
 
 $id = $_SESSION['id'];
 $Cnumber = $_GET['course_number'];

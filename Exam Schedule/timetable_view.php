@@ -15,7 +15,7 @@
   $location_name = $_GET['location_name'];
   $classroom = $_GET['classroom'];
   $date = $_GET['day'];
-  $day = ['', 'SUN', 'MON', 'TUE', 'WEN', 'TUR', 'FRI', 'SAT'];
+  $day = ['', 'SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'];
   $classrooms;
   $timetable;
 
