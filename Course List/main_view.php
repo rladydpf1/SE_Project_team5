@@ -201,7 +201,7 @@
 
     $num = $db->result->num_rows;
 
-    $base->content .= "<h1>수업 목록</h1><br>";
+    $base->content .= "<h1>수업 목록</h1>";
     $base->content .= "<table id = 'maintable'>";
     $base->content .= "<tr style=' border : 1px solid #808080; padding: 10px;' id=course_title>
                         <th>강의</th>
@@ -235,7 +235,7 @@
     $base->content .= "</table>";
 
     //시험 시간표 출력
-    $base->content .= "<h1>시험 시간</h1><br><div class = 'test_timetable'>";
+    $base->content .= "<h1>시험 시간</h1><div class = 'test_timetable'>";
 
     $db->query = "SELECT	Cnumber, Cname, Lname, Exam_room, Estime, Eftime, Eday
     FROM	COURSE, EXAM, PROFESSOR, LOCATION, CLASSROOM
@@ -245,6 +245,18 @@
     $db->DBQ();
 
     $num = $db->result->num_rows;
+
+    $base->content .= "<table id = 'maintable'>";
+
+    $base->content .= "<tr style=' border : 1px solid #808080; padding: 10px;' id=course_title>
+                        <th>강의번호</th>
+                        <th>강의명</th>
+                        <th>건물번호</th>
+                        <th>강의실</th>
+                        <th>시작 시간</th>
+                        <th>종료 시간</th>
+                        <th>요일</th>
+                      </tr>";
 
     for($i = 0 ; $i < $num ; $i ++){
 
@@ -274,7 +286,7 @@
 
     }
 
-    $base->content .= "</table>";
+    $base->content .= "</table><br>";
 
     $base->content .= "<table id = 'maintable' width='100%' cellpadding='5' cellspacing='2' align='center' style='table-layout:fixed; word-break:break-all;'>
                         <tr>
