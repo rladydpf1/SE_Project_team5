@@ -41,15 +41,15 @@
     $num = $db->result->num_rows;
 
     //수업 목록 출력
-    $base->content .= "<h1>수강 목록</h1><br>";
-    $base->content .= "<table id = 'maintable' width = '100%'>";
-    $base->content .= "<tr style='text-align: center; padding: 10px;  border : 1px solid #808080; ' id=course_title>
-                        <td>강의</td>
-                        <td>Pnum</td>
-                        <td>강의실</td>
-                        <td>시작 시간</td>
-                        <td>종료 시간</td>
-                        <td>요일</td>
+    $base->content .= "<h1>수업 목록</h1>";
+    $base->content .= "<table id = 'maintable'>";
+    $base->content .= "<tr style=' border : 1px solid #808080; padding: 10px;' id=course_title>
+                        <th>강의</th>
+                        <th>교수</th>
+                        <th>강의실</th>
+                        <th>시작 시간</th>
+                        <th>종료 시간</th>
+                        <th>요일</th>
                       </tr>";
 
     for($i = 0 ; $i < $num ; $i ++){
@@ -73,7 +73,7 @@
     $base->content .= "</table>";
 
     //시험 시간표 출력 부분
-    $base->content .= "<h1>시험 시간</h1><br><div class = 'test_timetable'>";
+    $base->content .= "<h1>시험 시간</h1>";
 
     $db->query = "SELECT	Cnumber, Cname, Lname, Exam_room, Estime, Eftime, Eday
     FROM	COURSE, EXAM, STUDENT, TAKE_CLASS, LOCATION, CLASSROOM
@@ -83,11 +83,22 @@
 
     $num = $db->result->num_rows;
 
+    $base->content .= "<table id = 'maintable'>";
+    $base->content .= "<tr style=' border : 1px solid #808080; padding: 10px;' id=course_title>
+                        <th>강의번호</th>
+                        <th>강의명</th>
+                        <th>건물번호</th>
+                        <th>강의실</th>
+                        <th>시작 시간</th>
+                        <th>종료 시간</th>
+                        <th>요일</th>
+                      </tr>";
+
     for($i = 0 ; $i < $num ; $i ++){
 
       $data = $db->result->fetch_row();
       //텍스트 시험 과목들
-      $base->content .= "<tr style='text-align: center; padding: 10px; ' id=course_text>
+      $base->content .= "<tr style=' border:1px solid #808080; text-align: center; padding: 10px; ' id=course_text>
                           <td>".$data[0]."</td>
                           <td>".$data[1]."</td>
                           <td>".$data[2]."</td>
@@ -111,7 +122,7 @@
 
     }
 
-    $base->content .= "</table>";
+    $base->content .= "</table><br>";
 
     $base->content .= "<table id = 'maintable' width='100%' cellpadding='5' cellspacing='2' align='center' style='table-layout:fixed; word-break:break-all;'>
                         <tr>
