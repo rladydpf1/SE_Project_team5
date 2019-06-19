@@ -106,7 +106,7 @@
                           <td>".$data[4]."</td>
                           <td>".$data[5]."</td>
                           <td>".$data[6]."</td>
-                        </tr><br>";
+                        </tr>";
 
         $Stime = explode(':', $data[4]);
         $Etime = explode(':', $data[5]);
