@@ -1,6 +1,7 @@
 <?php
-
+require_once '../layout.inc';
 require_once '../Database/db.php';
+
 $base = new Layout;
 $base->link = './timetable.css';
 
@@ -61,14 +62,14 @@ if ($num >= 1) { // 해당 수업을 듣는 학생의 다른 시험 일정이 1�
 }
 
 // 해당 시험일정과 겹치는 수업이 없는지 확인한다.
-$db->query = "CREATE OR REPLACE VIEW NOT_EXIST_EXAM AS 
-    SELECT Cnumber AS VCnumber 
-    FROM COURSE 
+$db->query = "CREATE OR REPLACE VIEW NOT_EXIST_EXAM AS
+    SELECT Cnumber AS VCnumber
+    FROM COURSE
     WHERE Cnumber NOT IN ( SELECT DISTINCT Cnum FROM EXAM )";
 $db->DBQ();
-$db->query = "CREATE OR REPLACE VIEW COURSE_VIEW AS 
-    SELECT VCnumber, Pnum 
-    FROM NOT_EXIST_EXAM, COURSE, CLASSHOUR 
+$db->query = "CREATE OR REPLACE VIEW COURSE_VIEW AS
+    SELECT VCnumber, Pnum
+    FROM NOT_EXIST_EXAM, COURSE, CLASSHOUR
     WHERE VCnumber = Cnumber AND Cnumber = Conum AND Course_room = '".$class_room."' AND Cday = '".$day."'";
 $db->DBQ();
 $db->query = "SELECT DISTINCT VCnumber, Pnum
@@ -88,7 +89,7 @@ if ($num == 1) { // 수업이 중복되었는지 확인하는 부분
             <input type = hidden id = 'day' name = 'day' value = '".$day."'> </input>
             <input type = hidden id = 'stime' name = 'stime' value = '".$stime."'> </input>
             <input type = hidden id = 'ftime' name = 'ftime' value = '".$ftime."'> </input>
-            <script> 
+            <script>
                 if (confirm('겹치는 일정이 있습니다. 메시지를 보내시겠습니까?') == true){
                     document.form.submit();
                 }
@@ -117,8 +118,10 @@ else { // 여기까지 겹치는 경우가 없을 경우 해당 시험일정을 
     }
     $db->DBQ();
     echo "<script>alert('시험 일정이 등록되었습니다.');</script>";
-    echo "<script>location.replace('../Course List/main_view.php');</script>";
+    echo "<script>location.replace('C:\xampp\SE_Project_team5\Course List\main_view.php');</script>";
 }
 
-$db->DBO();
+  $base->LayoutMain();
+  $db->DBO();
+
 ?>

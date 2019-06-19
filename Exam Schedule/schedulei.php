@@ -123,14 +123,43 @@ $base->content .="</select>
            </tr>
 
            <tr>
+            <td><label for='classroom' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>시작시간</label></td>
+            <td><input type = 'time' id='stime'></input></td>
+          </tr>
+          <tr>
+            <td><label for='classroom' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>종료시간</label></td>
+            <td><input type = 'time' id='ftime'></input></td>
+
+           </tr>
+
+           <tr>
               <td><input type='submit' value='조회' id='submit-btn'/></form></td>
-              <td><form></form><input type='submit' value='예약하기' id='submit-btn'/></td>
+              <script>function send(){
+                var day = document.getElementById('day');
+                var classroom = document.getElementById('classroom');
+                var location = document.getElementById('location');
+                var stime = document.getElementById('stime');
+                var ftime = document.getElementById('ftime');
+                var link = ''
+
+
+                link = 'course_number=' + $Cnumber + '&day=' + day.options[day.selectedIndex].value + '&classroom=' + classroom.options[classroom.selectedIndex].value.replace(' ', '+')
+                + '&location=' + location.options[location.selectedIndex].value + '&stime=' + stime.value
+                + '&ftime=' + ftime.value;
+
+                window.location.href = window.location.href.replace('schedulei.php', 'scheduler.php/?' + link);
+
+              }</script>
+              <td><input type='submit' value='예약하기' id='submit-btn' onclick = 'send()'/></td>
+
            </tr>
           </table>
          </div>
 
 
 ";
+/*link += '&stime=' + stime.options[stime.selectedIndex].value;
+link += '&ftime=' + ftime.options[ftime.selectedIndex].value;*/
 
 $base->LayoutMain();
 /*
