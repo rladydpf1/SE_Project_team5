@@ -262,7 +262,7 @@
 
       $data = $db->result->fetch_row();
       //텍스트 시험 과목들
-      $base->content .= "<tr style=' text-align: center; padding: 10px;' id=course_text>
+      $base->content .= "<tr style=' border:1px solid #808080; text-align: center; padding: 10px; ' id=course_text>
                           <td>".$data[0]."</td>
                           <td>".$data[1]."</td>
                           <td>".$data[2]."</td>

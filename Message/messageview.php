@@ -6,7 +6,7 @@ require_once '../Database/db.php';
 
 $base = new Layout;
 $base->link = '../style.css';
-
+$base->style = ' th, td{ border-right:1px solid #808080; } h1 {text-align : center;}';
 $db = new DBC;
 
 $db->DBI();
@@ -19,9 +19,9 @@ WHERE Receiver = '".$id."' AND RCnumber = Cnumber AND Course_room = Class_room A
 $db->DBQ();
 
 if($db->result){
-  $base->content .="<table style='margin-bottom: -15px;'>
+  $base->content .="<h1>메시지 확인</h1><table id='maintable'>
   <tr>
-    <th>제목</th>
+    <th style='width:200px'>제목</th>
     <th>보낸 사람</th>
     <th>건물 이름</th>
     <th>강의실</th>
@@ -31,8 +31,8 @@ if($db->result){
   </tr>
   ";
   while($data = $db->result->fetch_row())
-    $base->content .= "<tr>
-      <td><a href='./messagedetail.php?num=".$data[0]."'>".$data[1]."</a></td>
+    $base->content .= "<tr style=' border : 1px solid #808080; text-align: center; padding: 10px; '>
+      <td ><a href='./messagedetail.php?num=".$data[0]."' >".$data[1]."</a></td>
       <td>".$data[2]."</td>
       <td>".$data[3]."</td>
       <td>".$data[4]."</td>
