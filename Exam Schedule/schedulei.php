@@ -143,7 +143,7 @@ $base->content .="</select>
                 var link = ''
 
 
-                link = 'course_number=' + $Cnumber + '&day=' + day.options[day.selectedIndex].value + '&class_room=' + classroom.options[classroom.selectedIndex].value.replace(' ', '+')
+                link = 'course_number=' + $Cnumber + '&day=' + day.options[day.selectedIndex].value + '&classroom=' + classroom.options[classroom.selectedIndex].value.replace(' ', '+')
                 + '&location=' + location.options[location.selectedIndex].value + '&stime=' + stime.value
                 + '&ftime=' + ftime.value;
 

@@ -8,12 +8,12 @@ $base->link = './timetable.css';
 $db = new DBC;
 $db->DBI();
 $id = $_SESSION['id'];
-$Cnumber = $_GET['course_number'];
-$location = $_GET['location'];
-$class_room = $_GET['class_room'];
-$day = $_GET['day'];
-$stime = $_GET['stime'];
-$ftime = $_GET['ftime'];
+$Cnumber = $_POST['course_number'];
+$location = $_POST['location'];
+$class_room = $_POST['class_room'];
+$day = $_POST['day'];
+$stime = $_POST['stime'];
+$ftime = $_POST['ftime'];
 
 // 해당 시험일정과 겹치는 다른 시험일정이 없는지 확인한다.
 $db->query = "CREATE OR REPLACE VIEW EXAM_VIEW AS
