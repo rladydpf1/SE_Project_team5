@@ -7,13 +7,18 @@ $base->link = './timetable.css';
 
 $db = new DBC;
 $db->DBI();
+
+$date = ['', 'SUN', 'MON', 'TUE', 'WEN', 'TUR', 'FRI', 'SAT'];
+
 $id = $_SESSION['id'];
-$Cnumber = $_POST['course_number'];
-$location = $_POST['location'];
-$class_room = $_POST['class_room'];
-$day = $_POST['day'];
-$stime = $_POST['stime'];
-$ftime = $_POST['ftime'];
+$Cnumber = $_GET['course_number'];
+$location = $_GET['location'];
+$class_room = $_GET['class_room'];
+$day = $_GET['day'];
+$stime = $_GET['stime'];
+$ftime = $_GET['ftime'];
+$day = $date[$day];
+
 
 // 해당 시험일정과 겹치는 다른 시험일정이 없는지 확인한다.
 $db->query = "CREATE OR REPLACE VIEW EXAM_VIEW AS
@@ -118,7 +123,7 @@ else { // 여기까지 겹치는 경우가 없을 경우 해당 시험일정을 
     }
     $db->DBQ();
     echo "<script>alert('시험 일정이 등록되었습니다.');</script>";
-    echo "<script>location.replace('C:\xampp\SE_Project_team5\Course List\main_view.php');</script>";
+    echo "<script>window.location.href = window.location.href.split('/Exam%20Schedule/')[0] + '/Course%20List/main_view.php'</script>";
 }
 
   $base->LayoutMain();

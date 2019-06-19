@@ -133,7 +133,7 @@ $base->content .="</select>
            </tr>
 
            <tr>
-              <td><input type='submit' value='조회' id='submit-btn'/></form></td>
+              <td><input type='submit' value='조회' id='submit-btn' style = 'width : 100%;'/></form></td>
               <script>function send(){
                 var day = document.getElementById('day');
                 var classroom = document.getElementById('classroom');
@@ -142,7 +142,6 @@ $base->content .="</select>
                 var ftime = document.getElementById('ftime');
                 var link = ''
 
-
                 link = 'course_number=' + $Cnumber + '&day=' + day.options[day.selectedIndex].value + '&classroom=' + classroom.options[classroom.selectedIndex].value.replace(' ', '+')
                 + '&location=' + location.options[location.selectedIndex].value + '&stime=' + stime.value
                 + '&ftime=' + ftime.value;
@@ -150,7 +149,7 @@ $base->content .="</select>
                 window.location.href = window.location.href.replace('schedulei.php', 'scheduler.php/?' + link);
 
               }</script>
-              <td><input type='submit' value='예약하기' id='submit-btn' onclick = 'send()'/></td>
+              <td><input type='submit' value='예약하기' id='submit-btn' onclick = 'send()' style = 'width : 100%;'/></td>
 
            </tr>
           </table>
@@ -163,6 +162,7 @@ link += '&ftime=' + ftime.options[ftime.selectedIndex].value;*/
 
 $base->LayoutMain();
 /*
+동적조회
 $i = 0;
 $db->query = "SELECT MAX(Lnumber) AS max_number FROM LOCATION";// -- for문을 돌릴 때 쓰는 값
 
