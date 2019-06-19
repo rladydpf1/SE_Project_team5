@@ -63,9 +63,6 @@ for($i = 0 ;$i <= $size ;$i++){
     $locations .= ']]';
 }
 
-echo $locations;
-
-
 $base->content = "<iframe name = 'timetable' src = 'timetable_view.php?day=2&location_name=1&classroom=1+345' width = '100%' height = '200px'  frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 style = 'margin-left: auto; margin-right: auto; width = '100%''></iframe>
 
    <form action='./timetable_view.php' target='timetable' method='GET'>
