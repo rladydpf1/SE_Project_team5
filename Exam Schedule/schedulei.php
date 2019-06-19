@@ -47,7 +47,7 @@ for($i = 0 ;$i <= $size ;$i++){
   $jsize = $db->result->num_rows;
 
   while($data = $db->result->fetch_row()){
-    $data[0] = explode(" ", $data[0])[1];
+    $data[0] = "'" . $data[0] . "'";
 
     if($j != $jsize - 1)
       $locations .= $data[0] . ',';
@@ -62,6 +62,7 @@ for($i = 0 ;$i <= $size ;$i++){
   else
     $locations .= ']]';
 }
+
 
 $base->content = "<iframe name = 'timetable' src = 'timetable_view.php?day=2&location_name=1&classroom=1+345' width = '100%' height = '200px'  frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 style = 'margin-left: auto; margin-right: auto; width = '100%''></iframe>
 

@@ -8,7 +8,7 @@ $base->link = './timetable.css';
 $db = new DBC;
 $db->DBI();
 
-$date = ['', 'SUN', 'MON', 'TUE', 'WEN', 'THU', 'FRI', 'SAT'];
+$date = ['', 'SUN', 'MON', 'TUE', 'WEN', 'TUE', 'FRI', 'SAT'];
 
 $id = $_SESSION['id'];
 $Cnumber = $_GET['course_number'];
@@ -35,7 +35,7 @@ $data = $db->result->fetch_row();
 
 if ($num >= 1) { // 시험일정이 겹쳤을 경우에는 요청 메시지를 보내지 않는다.
     echo "<script>alert('겹치는 시험일정이 있습니다. 다른 일정을 선택해 주십시오.');</script>";
-    echo "<script>window.location.href = window.location.href.split('/Exam%20Schedule/')[0] + '/Course%20List/main_view.php'</script>"
+    echo "<script>location.replace('schedulei.php');</script>";
 }
 
 // 학생의 다른 시험일정이 겹칠 경우 경고 메시지를 보낸다.
@@ -61,7 +61,7 @@ if ($num >= 1) { // 해당 수업을 듣는 학생의 다른 시험 일정이 1�
     }
     else {
         alert('시험일정을 취소합니다.');
-        window.location.href = window.location.href.split('/Exam%20Schedule/')[0] + '/Course%20List/main_view.php'
+        location.replace('schedulei.php');
     }
     </script>";
 }
@@ -107,7 +107,7 @@ if ($num == 1) { // 수업이 중복되었는지 확인하는 부분
 }
 else if ($num > 1) { // 수업 시간이 2개 이상 겹쳤을 경우에는 메시지를 보내지 않는다.
     echo "<script>alert('겹치는 수업 일정이 2개 이상입니다.');</script>";
-    echo "<script>window.location.href = window.location.href.split('/Exam%20Schedule/')[0] + '/Course%20List/main_view.php'</script>";
+    echo "<script>location.replace('schedulei.php');</script>";
 }
 
 else { // 여기까지 겹치는 경우가 없을 경우 해당 시험일정을 등록한다.
