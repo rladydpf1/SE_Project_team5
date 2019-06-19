@@ -2,6 +2,7 @@
 <?php
 
 require_once '../layout.inc';
+
 /*
 $sender = $_POST['sender'];
 $receiver = $_POST['receiver'];
@@ -12,6 +13,7 @@ $day = $_POST['day'];
 $stime = $_POST['stime'];
 $ftime = $_POST['ftime'];*/
 
+$base->style = 'td{ border-right:1px solid #808080; }';
 
 $sender = '0000';
 $receiver = '0001';
@@ -30,46 +32,44 @@ $base->link = '../style.css';
 $id = $_SESSION['id'];
 
 $base->content = "<form action='messageSender.php' method='post'>
-<fieldset style='width: 400px; margin-left: auto; margin-right: auto; border: none;'>
-<p> 쪽지 </p>
-<table style='margin-bottom: -15px;'>
+<h1 style='text-align : center;'> 쪽지 </h1>
+<table style='border-collapse : collapse; table-layout:fixed; margin:auto;' >
   <tr>
-    <td style='text-align:left;'><label for='title' id='msg-table-text'>제목</label></td>
-    <td><input type='text' id='title' name='title'maxlength='40' size='30' required/></td>
+    <td style=' text-align: center;width:100px;'>제목</td>
+    <td><input type='text' id='title' name='title'maxlength='40' size='80' required/></td>
   </tr>
   <tr>
-    <td style='text-align:left;'><label for='sender' id='msg-table-text'> 받는 사람 </td>
+    <td style=' text-align: center;width:100px;'>받는 사람 </td>
     <td>".$receiver."</td>
   </tr>
   <tr>
-    <td style='text-align:left;'><label for='Receiver' id='msg-table-text'> 강의 번호 </td>
+    <td style=' text-align: center;width:100px;'> 강의 번호 </td>
     <td>".$course_number."</td>
   </tr>
   <tr>
-    <td style='text-align:left;'><label for='Receiver' id='msg-table-text'> 건물번호 </td>
+    <td style=' text-align: center;width:100px;'> 건물번호 </td>
     <td>".$location."</td>
   </tr>
   <tr>
-    <td style='text-align:left;'><label for='Receiver' id='msg-table-text'> 강의실 </td>
+    <td style=' text-align: center;width:100px;'>강의실 </td>
     <td>".$class_room."</td>
   </tr>
   <tr>
-    <td style='text-align:left;'><label for='Receiver' id='msg-table-text'> 요일 </td>
+    <td style=' text-align: center;width:100px;'> 요일 </td>
     <td>".$day."</td>
   </tr>
   <tr>
-    <td style='text-align:left;'><label for='Receiver' id='msg-table-text'> 시간 </td>
+    <td style=' text-align: center;width:100px;'>시간 </td>
     <td>".$stime."~".$ftime."</td>
   </tr>
   <tr>
-    <td style='text-align:left;'><label for='contents' id='msg-table-text'>내용</label></td>
-    <td><p style='text-align:left;'><textarea name='contents' rows='10' cols='80' type='text' required></textarea></p></td>
+    <td style=' text-align: center;width:100px;'>내용</td>
+    <td><textarea name='contents' rows='10' cols='80' type='text' required></textarea></td>
   </tr>
 </table>
 
 
-  <p><input type='submit' value='전송' id='submit-btn'/></p>
-</fieldset>
+  <p ><input type='submit' value='전송' id='submit-btn' style='border-collapse : collapse; table-layout:fixed; margin:auto;'/></p>
   <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
   <input type = hidden id = 'receiver' name = 'receiver' value = '".$receiver."'> </input>
   <input type = hidden id = 'rcnumber' name = 'rcnumber' value = '".$course_number."'> </input>
