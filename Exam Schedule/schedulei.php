@@ -29,6 +29,43 @@ $day = ['MON' => 2, 'THU' => 3, 'WEN' => 4, 'TUR' => 5, 'FRI' => 6, 'SAT' => 7, 
 $array = "new Array(1, 2, 3, 4, 5)";
 $base->script = "var arr = $array; var i; document.write($Cnumber); for(i = 0 ; i < arr.length ; i ++)document.write(arr[i]);";
 */
+$db->query = "SELECT * FROM LOCATION";
+
+$db->DBQ();
+$size = $db->result->num_rows;
+
+$locations = '[';
+for($i = 0 ;$i <= $size ;$i++){
+
+  $locations .= '[';
+
+  $db->query = "SELECT Class_room FROM CLASSROOM WHERE Lnum = $i";
+
+  $db->DBQ();
+
+  $j = 0;
+  $jsize = $db->result->num_rows;
+
+  while($data = $db->result->fetch_row()){
+    $data[0] = explode(" ", $data[0])[1];
+
+    if($j != $jsize - 1)
+      $locations .= $data[0] . ',';
+    else{
+      $locations .= $data[0];
+    }
+    $j++;
+  }
+
+  if($i != $size)
+    $locations .= '],';
+  else
+    $locations .= ']]';
+}
+
+echo $locations;
+
+
 $base->content = "<iframe name = 'timetable' src = 'timetable_view.php?day=2&location_name=1&classroom=1+345' width = '100%' height = '200px'  frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 style = 'margin-left: auto; margin-right: auto; width = '100%''></iframe>
 
    <form action='./timetable_view.php' target='timetable' method='GET'>
@@ -66,20 +103,50 @@ $base->content = "<iframe name = 'timetable' src = 'timetable_view.php?day=2&loc
               <td><label for='location_name' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>건물번호</label></td>
 
               <td>
-                <select name='location_name' id = 'location'>";
+              <script>function send(){
+                var day = document.getElementById('day');
+                var classroom = document.getElementById('classroom');
+                var location = document.getElementById('location');
+                var stime = document.getElementById('stime');
+                var ftime = document.getElementById('ftime');
+                var link = ''
+
+                link = 'course_number=' + $Cnumber + '&day=' + day.options[day.selectedIndex].value + '&classroom=' + classroom.options[classroom.selectedIndex].value.replace(' ', '+')
+                + '&location=' + location.options[location.selectedIndex].value + '&stime=' + stime.value
+                + '&ftime=' + ftime.value;
+
+                window.location.href = window.location.href.replace('schedulei.php', 'scheduler.php/?' + link);
+
+              }
+              function changes(e){
+
+                var location = document.getElementById('location');
+                var arr = $locations;
+                var index = location.options[location.selectedIndex].value;
+                var target = document.getElementById('classroom');
+
+                target.options.length = 0;
+
+                var d = arr[index];
+
+
+                for (x in d) {
+                  var opt = document.createElement('option');
+                  opt.value = d[x];
+                  opt.innerHTML = d[x];
+                  target.appendChild(opt);
+                }
+              }</script>
+                <select  onchange='changes(this)' name='location_name' id = 'location'>";
 
 $db->query = "SELECT * FROM LOCATION";
 
 $db->DBQ();
+$size = $db->result->num_rows;
 
 if($db->result){
   while($data = $db->result->fetch_row()){
-    if($location_num == $data[1]){
-      $base->content .= " <option value='".$data[0]."' selected = 'selected'>".$data[1]."</option>";
-    }
-    else{
       $base->content .= " <option value='".$data[0]."'>".$data[1]."</option>";
-    }
   }
 }
 
@@ -95,10 +162,9 @@ $base->content .="</select>
               <td><label for='classroom' style='font-family: 휴먼모음T; font-size: 20px; color: #000000; float: left;'>강의실</label></td>
 
               <td>
-                <select name='classroom' id = classroom>";
+                <select name='classroom' id = 'classroom''>";
 
-
-$db->query = "SELECT * FROM CLASSROOM";
+$db->query = "SELECT Class_room FROM CLASSROOM WHERE Lnum = 1";
 
 $db->DBQ();
 
@@ -134,21 +200,6 @@ $base->content .="</select>
 
            <tr>
               <td><input type='submit' value='조회' id='submit-btn' style = 'width : 100%;'/></form></td>
-              <script>function send(){
-                var day = document.getElementById('day');
-                var classroom = document.getElementById('classroom');
-                var location = document.getElementById('location');
-                var stime = document.getElementById('stime');
-                var ftime = document.getElementById('ftime');
-                var link = ''
-
-                link = 'course_number=' + $Cnumber + '&day=' + day.options[day.selectedIndex].value + '&classroom=' + classroom.options[classroom.selectedIndex].value.replace(' ', '+')
-                + '&location=' + location.options[location.selectedIndex].value + '&stime=' + stime.value
-                + '&ftime=' + ftime.value;
-
-                window.location.href = window.location.href.replace('schedulei.php', 'scheduler.php/?' + link);
-
-              }</script>
               <td><input type='submit' value='예약하기' id='submit-btn' onclick = 'send()' style = 'width : 100%;'/></td>
 
            </tr>
