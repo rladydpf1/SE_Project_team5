@@ -34,11 +34,13 @@
   //학생이 수강중인 수업번호 가져오기
   if($regist_type == 2){
 
-    $db->query = "SELECT Cname, Pnum, Course_room, Cstime, Cftime, Cday FROM	COURSE, STUDENT, TAKE_CLASS, LOCATION, CLASSROOM, CLASSHOUR WHERE	Snum = '".$id."' AND Snumber = Snum AND Cno = Cnumber AND Cnumber = Conum AND Course_room = Class_room";
+    $db->query = "SELECT Cname, Pname, Course_room, Cstime, Cftime, Cday FROM COURSE, PROFESSOR, TAKE_CLASS, CLASSROOM, CLASSHOUR WHERE Snum = '2017112999' AND Pnum = Pnumber AND Cno = Cnumber AND Cnumber = Conum AND Course_room = Class_room";
 
     $db->DBQ();
 
     $num = $db->result->num_rows;
+
+    echo $num;
 
     //수업 목록 출력
     $base->content .= "<h1>수업 목록</h1>";
@@ -205,7 +207,7 @@
   else if($regist_type == 1){
 
     $db->query = "SELECT	Cname, Course_room, Cstime, Cftime, Cday, Cnumber
-    FROM	COURSE, PROFESSOR, LOCATION, CLASSROOM, CLASSHOUR
+    FROM	COURSE, PROFESSOR, CLASSROOM, CLASSHOUR
     WHERE	Pnumber = '".$id."' AND Pnumber = Pnum AND Cnumber = Conum AND Course_room = Class_room;";
 
     $db->DBQ();
