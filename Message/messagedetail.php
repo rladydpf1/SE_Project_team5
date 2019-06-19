@@ -25,6 +25,12 @@ $db->DBQ();
 if($db->result){
 
   $data = $db->result->fetch_row();
+  $db->query = "SELECT Pname FROM PROFESSOR WHERE Pnumber = '".$data[3]."'";
+
+  $db->DBQ();
+
+  $send = $db->result->fetch_row();
+
   $db->query = "SELECT Lname,Cname,Course_room  FROM LOCATION, CLASSROOM, COURSE WHERE Cnumber = ".$data[2]." AND Course_room = Class_room AND Lnum = Lnumber;";
   $db->DBQ();
   if($db->result){
@@ -38,18 +44,18 @@ if($db->result){
     </tr>
     <tr style=' border : 1px solid #808080; text-align: center; padding: 10px; ' id=course_text>
       <td>보낸 사람</td>
-      <td>".$data[3]."</td>
+      <td>".$send[0]."</td>
     </tr>
     <tr style=' border : 1px solid #808080; text-align: center; padding: 10px; ' id=course_text>
       <td>발신 시각</td>
       <td>".$data[10]."</td>
     </tr>
     <tr style=' border : 1px solid #808080; text-align: center; padding: 10px; ' id=course_text>
-      <td>강의번호</td>
+      <td>수업명</td>
       <td>".$sdata[1]."</td>
     </tr>
     <tr style=' border : 1px solid #808080; text-align: center; padding: 10px; ' id=course_text>
-      <td>건물번호</td>
+      <td>건물이름</td>
       <td>".$sdata[0]."</td>
     </tr>
     <tr style=' border : 1px solid #808080; text-align: center; padding: 10px; ' id=course_text>

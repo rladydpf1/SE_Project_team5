@@ -13,9 +13,9 @@ $db->DBI();
 
 $id = $_SESSION['id'];
 
-$db->query = "SELECT Mnumber, Title, Sender, Lname, Course_room, Mstime, Mftime, Mday, Mtime
-FROM MESSAGE, LOCATION, CLASSROOM, COURSE
-WHERE Receiver = '".$id."' AND RCnumber = Cnumber AND Course_room = Class_room AND Lnum = Lnumber;";
+$db->query = "SELECT Mnumber, Title, Pname, Lname, Course_room, Mstime, Mftime, Mday, Mtime
+FROM MESSAGE, LOCATION, CLASSROOM, COURSE, PROFESSOR
+WHERE Receiver = '".$id."' AND RCnumber = Cnumber AND Sender = Pnumber AND Course_room = Class_room AND Lnum = Lnumber;";
 $db->DBQ();
 
 if($db->result){
