@@ -23,18 +23,16 @@
   $db->DBQ();
 
   $num = $db->result->num_rows;
-  $data = $db->result->fetch_row();
 
   for ($i = 0; $i < $num ; $i++){
-
+    $data = $db->result->fetch_row();
     $building_num[$data[0]] = $data[1];
-
   }
 
   //학생이 수강중인 수업번호 가져오기
   if($regist_type == 2){
 
-    $db->query = "SELECT Cname, Pname, Course_room, Cstime, Cftime, Cday FROM COURSE, PROFESSOR, TAKE_CLASS, CLASSROOM, CLASSHOUR WHERE Snum = '2017112999' AND Pnum = Pnumber AND Cno = Cnumber AND Cnumber = Conum AND Course_room = Class_room";
+    $db->query = "SELECT Cname, Pname, Course_room, Cstime, Cftime, Cday FROM COURSE, PROFESSOR, TAKE_CLASS, CLASSROOM, CLASSHOUR WHERE Snum = '".$id."' AND Pnum = Pnumber AND Cno = Cnumber AND Cnumber = Conum AND Course_room = Class_room";
 
     $db->DBQ();
 
@@ -79,7 +77,7 @@
 
     $db->query = "SELECT	Cnumber, Cname, Lname, Exam_room, Estime, Eftime, Eday
     FROM	COURSE, EXAM, STUDENT, TAKE_CLASS, LOCATION, CLASSROOM
-    WHERE	Snumber = '".$id."' AND Snumber = Snum AND Cno = Cnumber AND Cnumber = Cnum AND Exam_room = Class_room;";
+    WHERE	Snumber = '".$id."' AND Snumber = Snum AND Cno = Cnumber AND Cnumber = Cnum AND Exam_room = Class_room AND Lnumber = Lnum;";
 
     $db->DBQ();
 
@@ -206,9 +204,9 @@
   //교수가 수업중인 목록 출력
   else if($regist_type == 1){
 
-    $db->query = "SELECT	Cname, Course_room, Cstime, Cftime, Cday, Cnumber
-    FROM	COURSE, PROFESSOR, CLASSROOM, CLASSHOUR
-    WHERE	Pnumber = '".$id."' AND Pnumber = Pnum AND Cnumber = Conum AND Course_room = Class_room;";
+    $db->query = "SELECT	Cname, Lname, Course_room, Cstime, Cftime, Cday, Cnumber
+    FROM	COURSE, PROFESSOR, CLASSROOM, CLASSHOUR, LOCATION
+    WHERE	Pnumber = '".$id."' AND Pnumber = Pnum AND Cnumber = Conum AND Course_room = Class_room AND Lnumber = Lnum;";
 
     $db->DBQ();
 
@@ -218,6 +216,7 @@
     $base->content .= "<table id = 'maintable'>";
     $base->content .= "<tr style=' border : 1px solid #808080; padding: 10px;' id=course_title>
                         <th>강의</th>
+                        <th>건물이름</th>
                         <th>강의실</th>
                         <th>시작 시간</th>
                         <th>종료 시간</th>
@@ -232,12 +231,13 @@
       $base->content .= "<tr style=' border:1px solid #808080; text-align: center; padding: 10px; ' id=course_text>
                           <td>".$data[0]."</td>
                           <td>".$data[1]."</td>
-                          <td>".$data[2]."</td>
+                          <td>".explode(" ", $data[2])[1]."</td>
                           <td>".$data[3]."</td>
                           <td>".$data[4]."</td>
+                          <td>".$data[5]."</td>
                           <td>
                             <form action = '../Exam Schedule/schedulei.php' method = 'post'>
-                              <input type = hidden id = 'course_number' name = 'course_number'  value = '".$data[5]."'></input>
+                              <input type = hidden id = 'course_number' name = 'course_number'  value = '".$data[6]."'></input>
                               <input type = submit id = 'submit' value = ''></input>
                             </form>
                           </td>
@@ -252,7 +252,7 @@
 
     $db->query = "SELECT	Cnumber, Cname, Lname, Exam_room, Estime, Eftime, Eday
     FROM	COURSE, EXAM, PROFESSOR, LOCATION, CLASSROOM
-    WHERE	Pnumber = '".$id."' AND Pnumber = Pnum AND Cnumber = Cnum AND Exam_room = Class_room;";
+    WHERE	Pnumber = '".$id."' AND Pnumber = Pnum AND Cnumber = Cnum AND Exam_room = Class_room AND Lnumber = Lnum;";
 
 
     $db->DBQ();
@@ -264,7 +264,7 @@
     $base->content .= "<tr style=' border : 1px solid #808080; padding: 10px;' id=course_title>
                         <th>강의번호</th>
                         <th>강의명</th>
-                        <th>건물번호</th>
+                        <th>건물이름</th>
                         <th>강의실</th>
                         <th>시작 시간</th>
                         <th>종료 시간</th>
