@@ -14,7 +14,6 @@ $day = $_POST['day'];
 $stime = $_POST['stime'];
 $ftime = $_POST['ftime'];
 
-$base->style = 'td{ border-right:1px solid #808080; }';
 /*
 $sender = '0000';
 $receiver = '0001';
@@ -70,7 +69,7 @@ $base->content = "<form action='messageSender.php' method='post'>
 </table>
 
 
-  <p ><input type='submit' value='전송' id='submit-btn' style='border-collapse : collapse; table-layout:fixed; margin:auto;'/></p>
+  <div style = 'text-align:center'><input type='submit' value='전송' id='submit-btn' style='border-collapse : collapse; table-layout:fixed; margin:auto;'/></p></div>
   <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
   <input type = hidden id = 'receiver' name = 'receiver' value = '".$receiver."'> </input>
   <input type = hidden id = 'rcnumber' name = 'rcnumber' value = '".$rcnumber."'> </input>
