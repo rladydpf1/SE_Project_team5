@@ -64,7 +64,6 @@ else{
           location.replace('../Course%20List/main_view.php');
       }
       </script>";
-
   }
   // 해당 시험일정과 겹치는 수업이 없는지 확인한다.
   $db->query = "CREATE OR REPLACE VIEW NOT_EXIST_EXAM AS
@@ -84,18 +83,18 @@ else{
   $num = $db->result->num_rows;
   $data = $db->result->fetch_row();
   echo $num;
-
   if ($num == 1) { // 수업이 중복되었는지 확인하는 부분
       if ($data[1] != $id) { // 자기 자신의 수업일 경우엔 그대로 진행한다.
           $base->content .= "<form method = post name = form action = '../Message/message.php'>
               <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
               <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."'> </input>
-              <input type = hidden id = 'course_number' name = 'course_number' value = '".$data[0]."'> </input>
+              <input type = hidden id = 'rcnumber' name = 'rcnumber' value = '".$data[0]."'> </input>
               <input type = hidden id = 'location' name = 'location' value = '".$location."'> </input>
               <input type = hidden id = 'class_room' name = 'class_room' value = '".$class_room."'> </input>
               <input type = hidden id = 'day' name = 'day' value = '".$day."'> </input>
               <input type = hidden id = 'stime' name = 'stime' value = '".$stime."'> </input>
               <input type = hidden id = 'ftime' name = 'ftime' value = '".$ftime."'> </input>
+              <input type = hidden id = 'scnumber' name = 'scnumber' value = '".$Cnumber."'> </input>
               <script>
                   if (confirm('겹치는 일정이 있습니다. 메시지를 보내시겠습니까?') == true){
                       document.form.submit();
@@ -126,7 +125,6 @@ else{
       echo "<script>alert('시험 일정이 등록되었습니다.');</script>";
       echo "<script>window.location.href = window.location.href.split('/Exam%20Schedule/')[0] + '/Course%20List/main_view.php'</script>";
   }
-
 }
   $base->LayoutMain();
   $db->DBO();
