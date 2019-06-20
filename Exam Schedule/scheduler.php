@@ -52,7 +52,7 @@ if($select == 1){
               <input type = hidden id = 'ftime' name = 'ftime' value = '".$ftime."'> </input>
               <input type = hidden id = 'scnumber' name = 'scnumber' value = '".$Cnumber."'> </input>
               <script>
-                  if (confirm('겹치는 일정이 있습니다. 메시지를 보내시겠습니까?') == true){
+                  if (confirm('겹치는 수업이 있습니다. 메시지를 보내시겠습니까?') == true){
                       document.form.submit();
                   }
                   else {
