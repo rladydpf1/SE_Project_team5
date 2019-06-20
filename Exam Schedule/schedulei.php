@@ -24,7 +24,7 @@ else {
 $location_name = $_GET['location_name'];
 $classroom = $_GET['classroom'];
 $timetable_data = array();
-$day = ['MON' => 2, 'THU' => 3, 'WEN' => 4, 'TUR' => 5, 'FRI' => 6, 'SAT' => 7, 'SUN' => 1];
+$day = ['MON' => 2, 'TUE' => 3, 'WEN' => 4, 'THU' => 5, 'FRI' => 6, 'SAT' => 7, 'SUN' => 1];
 /*
 $array = "new Array(1, 2, 3, 4, 5)";
 $base->script = "var arr = $array; var i; document.write($Cnumber); for(i = 0 ; i < arr.length ; i ++)document.write(arr[i]);";
