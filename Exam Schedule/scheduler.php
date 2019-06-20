@@ -64,69 +64,69 @@ else{
           location.replace('../Course%20List/main_view.php');
       }
       </script>";
-  }
-  else {
 
-    // 해당 시험일정과 겹치는 수업이 없는지 확인한다.
-    $db->query = "CREATE OR REPLACE VIEW NOT_EXIST_EXAM AS
-        SELECT Cnumber AS VCnumber
-        FROM COURSE
-        WHERE Cnumber NOT IN ( SELECT DISTINCT Cnum FROM EXAM )";
-    $db->DBQ();
-    $db->query = "CREATE OR REPLACE VIEW COURSE_VIEW AS
-        SELECT VCnumber, Pnum
-        FROM NOT_EXIST_EXAM, COURSE, CLASSHOUR
-        WHERE VCnumber = Cnumber AND Cnumber = Conum AND Course_room = '".$class_room."' AND Cday = '".$day."'";
-    $db->DBQ();
-    $db->query = "SELECT DISTINCT VCnumber, Pnum
-        FROM COURSE_VIEW JOIN CLASSHOUR ON Vcnumber = Conum
-        WHERE TIME('".$stime."') BETWEEN Cstime AND Cftime OR TIME('".$ftime."') BETWEEN Cstime AND Cftime";
-    $db->DBQ();
-    $num = $db->result->num_rows;
-    $data = $db->result->fetch_row();
-    echo $num;
-    if ($num == 1) { // 수업이 중복되었는지 확인하는 부분
-        if ($data[1] != $id) { // 자기 자신의 수업일 경우엔 그대로 진행한다.
-            $base->content .= "<form method = post name = form action = '../Message/message.php'>
-                <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
-                <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."'> </input>
-                <input type = hidden id = 'course_number' name = 'course_number' value = '".$data[0]."'> </input>
-                <input type = hidden id = 'location' name = 'location' value = '".$location."'> </input>
-                <input type = hidden id = 'class_room' name = 'class_room' value = '".$class_room."'> </input>
-                <input type = hidden id = 'day' name = 'day' value = '".$day."'> </input>
-                <input type = hidden id = 'stime' name = 'stime' value = '".$stime."'> </input>
-                <input type = hidden id = 'ftime' name = 'ftime' value = '".$ftime."'> </input>
-                <script>
-                    if (confirm('겹치는 일정이 있습니다. 메시지를 보내시겠습니까?') == true){
-                        document.form.submit();
-                    }
-                    else {
-                        location.replace('../Course%20List/main_view.php');
-                    }
-                </script>
-                </form>";
-        }
-    }
-    else if ($num > 1) { // 수업 시간이 2개 이상 겹쳤을 경우에는 메시지를 보내지 않는다.
-        echo "<script>alert('겹치는 수업 일정이 2개 이상입니다.');</script>";
-        echo "<script>location.replace('schedulei.php');</script>";
-    }
-    else { // 여기까지 겹치는 경우가 없을 경우 해당 시험일정을 등록한다.
-        $db->query = "SELECT MAX(Enumber) FROM EXAM ";
-        $db->DBQ();
-        $num = $db->result->num_rows;
-        $data = $db->result->fetch_row();
-        if ($num >= 1) {
-            $db->query = "INSERT INTO EXAM VALUES (".$data[0]." + 1, ".$Cnumber.", '".$class_room."', '".$stime."', '".$ftime."', '".$day."')";
-        }
-        else { // 숫자가 없을 경우
-            $db->query = "INSERT INTO EXAM VALUES (1, ".$Cnumber.", '".$class_room."', '".$stime."', '".$ftime."', '".$day."')";
-        }
-        $db->DBQ();
-        echo "<script>alert('시험 일정이 등록되었습니다.');</script>";
-        echo "<script>window.location.href = window.location.href.split('/Exam%20Schedule/')[0] + '/Course%20List/main_view.php'</script>";
-    }
   }
+  // 해당 시험일정과 겹치는 수업이 없는지 확인한다.
+  $db->query = "CREATE OR REPLACE VIEW NOT_EXIST_EXAM AS
+      SELECT Cnumber AS VCnumber
+      FROM COURSE
+      WHERE Cnumber NOT IN ( SELECT DISTINCT Cnum FROM EXAM )";
+  $db->DBQ();
+  $db->query = "CREATE OR REPLACE VIEW COURSE_VIEW AS
+      SELECT VCnumber, Pnum
+      FROM NOT_EXIST_EXAM, COURSE, CLASSHOUR
+      WHERE VCnumber = Cnumber AND Cnumber = Conum AND Course_room = '".$class_room."' AND Cday = '".$day."'";
+  $db->DBQ();
+  $db->query = "SELECT DISTINCT VCnumber, Pnum
+      FROM COURSE_VIEW JOIN CLASSHOUR ON Vcnumber = Conum
+      WHERE TIME('".$stime."') BETWEEN Cstime AND Cftime OR TIME('".$ftime."') BETWEEN Cstime AND Cftime";
+  $db->DBQ();
+  $num = $db->result->num_rows;
+  $data = $db->result->fetch_row();
+  echo $num;
+
+  if ($num == 1) { // 수업이 중복되었는지 확인하는 부분
+      if ($data[1] != $id) { // 자기 자신의 수업일 경우엔 그대로 진행한다.
+          $base->content .= "<form method = post name = form action = '../Message/message.php'>
+              <input type = hidden id = 'sender' name = 'sender' value = '".$id."'> </input>
+              <input type = hidden id = 'receiver' name = 'receiver' value = '".$data[1]."'> </input>
+              <input type = hidden id = 'course_number' name = 'course_number' value = '".$data[0]."'> </input>
+              <input type = hidden id = 'location' name = 'location' value = '".$location."'> </input>
+              <input type = hidden id = 'class_room' name = 'class_room' value = '".$class_room."'> </input>
+              <input type = hidden id = 'day' name = 'day' value = '".$day."'> </input>
+              <input type = hidden id = 'stime' name = 'stime' value = '".$stime."'> </input>
+              <input type = hidden id = 'ftime' name = 'ftime' value = '".$ftime."'> </input>
+              <script>
+                  if (confirm('겹치는 일정이 있습니다. 메시지를 보내시겠습니까?') == true){
+                      document.form.submit();
+                  }
+                  else {
+                      location.replace('../Course%20List/main_view.php');
+                  }
+              </script>
+              </form>";
+      }
+  }
+  else if ($num > 1) { // 수업 시간이 2개 이상 겹쳤을 경우에는 메시지를 보내지 않는다.
+      echo "<script>alert('겹치는 수업 일정이 2개 이상입니다.');</script>";
+      echo "<script>location.replace('schedulei.php');</script>";
+  }
+  else { // 여기까지 겹치는 경우가 없을 경우 해당 시험일정을 등록한다.
+      $db->query = "SELECT MAX(Enumber) FROM EXAM ";
+      $db->DBQ();
+      $num = $db->result->num_rows;
+      $data = $db->result->fetch_row();
+      if ($num >= 1) {
+          $db->query = "INSERT INTO EXAM VALUES (".$data[0]." + 1, ".$Cnumber.", '".$class_room."', '".$stime."', '".$ftime."', '".$day."')";
+      }
+      else { // 숫자가 없을 경우
+          $db->query = "INSERT INTO EXAM VALUES (1, ".$Cnumber.", '".$class_room."', '".$stime."', '".$ftime."', '".$day."')";
+      }
+      $db->DBQ();
+      echo "<script>alert('시험 일정이 등록되었습니다.');</script>";
+      echo "<script>window.location.href = window.location.href.split('/Exam%20Schedule/')[0] + '/Course%20List/main_view.php'</script>";
+  }
+
 }
   $base->LayoutMain();
   $db->DBO();
