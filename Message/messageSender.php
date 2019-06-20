@@ -35,10 +35,9 @@ if($db->result->num_rows<1){
   echo 'error';
 }
 else {
-
-  $base->LayoutMain();
-  $db->DBO();
+  $db->DBQ();
   
+
   echo "<script>window.location.href = window.location.href.split('/Message/')[0] + '/Course%20List/main_view.php'</script>";
 }
 
